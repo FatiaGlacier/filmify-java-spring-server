@@ -6,6 +6,7 @@ import com.filmify.FilmiFy.UserRoom.UserRoom;
 import com.filmify.FilmiFy.UserUploading.UserUploading;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Room {
     private String room_name;
 
     @Column(name = "creation_date")
-    private Date creation_date;
+    private LocalDate creation_date;
 
 
     @OneToMany(mappedBy = "room")
@@ -46,14 +47,14 @@ public class Room {
     }
 
     public Room(Long room_id, String room_code,
-                String room_name, Date creation_date) {
+                String room_name, LocalDate creation_date) {
         this.room_id = room_id;
         this.room_code = room_code;
         this.room_name = room_name;
         this.creation_date = creation_date;
     }
 
-    public Room(String room_code, String room_name, Date creation_date) {
+    public Room(String room_code, String room_name, LocalDate creation_date) {
         this.room_code = room_code;
         this.room_name = room_name;
         this.creation_date = creation_date;
@@ -83,11 +84,11 @@ public class Room {
         this.room_name = room_name;
     }
 
-    public Date getCreation_date() {
+    public LocalDate getCreation_date() {
         return creation_date;
     }
 
-    public void setCreation_date(Date creation_date) {
+    public void setCreation_date(LocalDate creation_date) {
         this.creation_date = creation_date;
     }
 

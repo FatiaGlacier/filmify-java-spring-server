@@ -9,6 +9,7 @@ import com.filmify.FilmiFy.UserUploading.UserUploading;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnTransformer;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -41,10 +42,10 @@ public class User {
     private String gender;
 
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(name = "registration_date")
-    private Date registration_date;
+    private LocalDate registration_date;
 
     @Column(name = "is_admin")
     @ColumnTransformer(read = "case when is_admin = 1 then true else false end", write = "case when ? then 1 else 0 end")
@@ -70,8 +71,8 @@ public class User {
     }
 
     public User(Long user_id, String user_name, String user_email,
-                String password, String gender, Date birthday,
-                Date registration_date, boolean is_admin) {
+                String password, String gender, LocalDate birthday,
+                LocalDate registration_date, boolean is_admin) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_email = user_email;
@@ -83,7 +84,7 @@ public class User {
     }
 
     public User(String user_name, String user_email, String password,
-                String gender, Date birthday, Date registration_date,
+                String gender, LocalDate birthday, LocalDate registration_date,
                 boolean is_admin) {
         this.user_name = user_name;
         this.user_email = user_email;
@@ -134,19 +135,19 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
-    public Date getRegistration_date() {
+    public LocalDate getRegistration_date() {
         return registration_date;
     }
 
-    public void setRegistration_date(Date registration_date) {
+    public void setRegistration_date(LocalDate registration_date) {
         this.registration_date = registration_date;
     }
 
