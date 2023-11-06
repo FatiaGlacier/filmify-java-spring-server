@@ -1,13 +1,10 @@
 package com.filmify.FilmiFy.Room;
 
 import com.filmify.FilmiFy.RoomFilm.RoomFilm;
-import com.filmify.FilmiFy.UserFilm.UserFilm;
 import com.filmify.FilmiFy.UserRoom.UserRoom;
-import com.filmify.FilmiFy.UserUploading.UserUploading;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity

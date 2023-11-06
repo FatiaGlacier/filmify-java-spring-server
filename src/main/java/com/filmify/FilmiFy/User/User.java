@@ -1,6 +1,5 @@
 package com.filmify.FilmiFy.User;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.filmify.FilmiFy.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.UserFavoriteGenre.UserFavoriteGenre;
 import com.filmify.FilmiFy.UserFilm.UserFilm;
@@ -10,7 +9,6 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnTransformer;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
