@@ -15,15 +15,7 @@ import java.util.List;
 @Table(name = "user")
 public class User {
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long user_id;
 
@@ -66,6 +58,12 @@ public class User {
 
     public User(){
 
+    }
+
+    //For login
+    public User(String user_name, String password) {
+        this.user_name = user_name;
+        this.password = password;
     }
 
     public User(Long user_id, String user_name, String user_email,
