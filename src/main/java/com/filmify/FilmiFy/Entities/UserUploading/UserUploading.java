@@ -1,22 +1,14 @@
-package com.filmify.FilmiFy.UserUploading;
+package com.filmify.FilmiFy.Entities.UserUploading;
 
-import com.filmify.FilmiFy.Film.Film;
-import com.filmify.FilmiFy.User.User;
+import com.filmify.FilmiFy.Entities.User.User;
+import com.filmify.FilmiFy.Entities.Film.Film;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "userUploading")
+@Table(name = "useruploading")
 public class UserUploading {
     @Id
-    @SequenceGenerator(
-            name = "userUploading_sequence",
-            sequenceName = "userUploading_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "userUploading_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_uploading_id")
     private Long user_uploading_id;
 

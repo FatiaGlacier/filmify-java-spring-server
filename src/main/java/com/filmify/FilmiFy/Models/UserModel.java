@@ -1,10 +1,10 @@
-package com.filmify.FilmiFy.User;
+package com.filmify.FilmiFy.Models;
 
-import com.filmify.FilmiFy.RoomFilm.RoomFilm;
-import com.filmify.FilmiFy.UserFavoriteGenre.UserFavoriteGenre;
-import com.filmify.FilmiFy.UserFilm.UserFilm;
-import com.filmify.FilmiFy.UserRoom.UserRoom;
-import com.filmify.FilmiFy.UserUploading.UserUploading;
+import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
+import com.filmify.FilmiFy.Entities.UserFavoriteGenre.UserFavoriteGenre;
+import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
+import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
+import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnTransformer;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -55,20 +55,27 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<RoomFilm> roomFilms;
+    @ManyToMany
+    @JoinTable(
+            name = "userFavoriteGenre",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<GenreModel> genres;
 
-    public User(){
+    public UserModel(){
 
     }
 
     //For login
-    public User(String user_name, String password) {
+    public UserModel(String user_name, String password) {
         this.user_name = user_name;
         this.password = password;
     }
 
-    public User(Long user_id, String user_name, String user_email,
-                String password, String gender, LocalDate birthday,
-                LocalDate registration_date, boolean is_admin) {
+    public UserModel(Long user_id, String user_name, String user_email,
+                     String password, String gender, LocalDate birthday,
+                     LocalDate registration_date, boolean is_admin) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_email = user_email;
@@ -79,9 +86,9 @@ public class User {
         this.is_admin = is_admin;
     }
 
-    public User(String user_name, String user_email, String password,
-                String gender, LocalDate birthday, LocalDate registration_date,
-                boolean is_admin) {
+    public UserModel(String user_name, String user_email, String password,
+                     String gender, LocalDate birthday, LocalDate registration_date,
+                     boolean is_admin) {
         this.user_name = user_name;
         this.user_email = user_email;
         this.password = password;
@@ -194,6 +201,14 @@ public class User {
 
     public void setRoomFilms(List<RoomFilm> roomFilms) {
         this.roomFilms = roomFilms;
+    }
+
+    public List<GenreModel> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<GenreModel> genres) {
+        this.genres = genres;
     }
 
     @Override

@@ -1,7 +1,7 @@
-package com.filmify.FilmiFy.Room;
+package com.filmify.FilmiFy.Entities.Room;
 
-import com.filmify.FilmiFy.RoomFilm.RoomFilm;
-import com.filmify.FilmiFy.UserRoom.UserRoom;
+import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
+import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,15 +11,7 @@ import java.util.List;
 @Table(name = "room")
 public class Room {
     @Id
-    @SequenceGenerator(
-            name = "room_sequence",
-            sequenceName = "room_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "room_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id")
     private Long room_id;
 

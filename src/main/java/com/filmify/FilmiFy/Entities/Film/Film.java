@@ -1,8 +1,8 @@
-package com.filmify.FilmiFy.Film;
+package com.filmify.FilmiFy.Entities.Film;
 
-import com.filmify.FilmiFy.FilmGenre.FilmGenre;
-import com.filmify.FilmiFy.RoomFilm.RoomFilm;
-import com.filmify.FilmiFy.UserUploading.UserUploading;
+import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
+import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
+import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,15 +11,7 @@ import java.util.List;
 @Table(name = "film")
 public class Film {
     @Id
-    @SequenceGenerator(
-            name = "film_sequence",
-            sequenceName = "film_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "film_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Long film_id;
     @Column(name = "film_name")

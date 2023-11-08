@@ -1,8 +1,8 @@
-package com.filmify.FilmiFy.RoomFilm;
+package com.filmify.FilmiFy.Entities.RoomFilm;
 
-import com.filmify.FilmiFy.Film.Film;
-import com.filmify.FilmiFy.Room.Room;
-import com.filmify.FilmiFy.User.User;
+import com.filmify.FilmiFy.Entities.User.User;
+import com.filmify.FilmiFy.Entities.Film.Film;
+import com.filmify.FilmiFy.Entities.Room.Room;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,15 +10,7 @@ import jakarta.persistence.*;
 public class RoomFilm {
 
     @Id
-    @SequenceGenerator(
-            name = "roomfilm_sequence",
-            sequenceName = "roomfilm_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "roomfilm_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_film_id")
     private Long room_film_id;
 

@@ -1,22 +1,14 @@
-package com.filmify.FilmiFy.UserRoom;
+package com.filmify.FilmiFy.Entities.UserRoom;
 
-import com.filmify.FilmiFy.Room.Room;
-import com.filmify.FilmiFy.User.User;
+import com.filmify.FilmiFy.Entities.User.User;
+import com.filmify.FilmiFy.Entities.Room.Room;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "userRoom")
+@Table(name = "userroom")
 public class UserRoom {
     @Id
-    @SequenceGenerator(
-            name = "userRoom_sequence",
-            sequenceName = "userRoom_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "userRoom_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_room_id")
     private Long user_room_id;
 

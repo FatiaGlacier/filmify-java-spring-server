@@ -1,9 +1,9 @@
-package com.filmify.FilmiFy.Genre;
+package com.filmify.FilmiFy.Entities.Genre;
 
-import com.filmify.FilmiFy.FilmGenre.FilmGenre;
-import com.filmify.FilmiFy.RoomFilm.RoomFilm;
-import com.filmify.FilmiFy.UserFavoriteGenre.UserFavoriteGenre;
-import com.filmify.FilmiFy.UserUploading.UserUploading;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
+import com.filmify.FilmiFy.Entities.User.User;
+import com.filmify.FilmiFy.Entities.UserFavoriteGenre.UserFavoriteGenre;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,15 +13,7 @@ import java.util.List;
 public class Genre {
 
     @Id
-    @SequenceGenerator(
-            name = "genre_sequence",
-            sequenceName = "genre_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "genre_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "genre_id")
     private Long genre_id;
 
@@ -34,6 +26,15 @@ public class Genre {
 
     @OneToMany(mappedBy = "genre")
     private List<FilmGenre> filmGenres;
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "userFavoriteGenre",
+            joinColumns = @JoinColumn(name = "genre_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
 
 
     public Genre(){
@@ -63,6 +64,14 @@ public class Genre {
 
     public void setGenre_name(String genre_name) {
         this.genre_name = genre_name;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

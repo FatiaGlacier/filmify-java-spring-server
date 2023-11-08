@@ -1,22 +1,14 @@
-package com.filmify.FilmiFy.UserFavoriteGenre;
+package com.filmify.FilmiFy.Entities.UserFavoriteGenre;
 
-import com.filmify.FilmiFy.Genre.Genre;
-import com.filmify.FilmiFy.User.User;
+import com.filmify.FilmiFy.Entities.User.User;
+import com.filmify.FilmiFy.Entities.Genre.Genre;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "userFavoriteGenre")
+@Table(name = "userfavoritegenre")
 public class UserFavoriteGenre {
     @Id
-    @SequenceGenerator(
-            name = "userFavoriteGenre_sequence",
-            sequenceName = "userFavoriteGenre_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "userFavoriteGenre_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_favorite_genre_id")
     private Long user_favorite_genre_id;
 
