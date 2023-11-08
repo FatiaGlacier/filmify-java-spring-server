@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnTransformer;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity

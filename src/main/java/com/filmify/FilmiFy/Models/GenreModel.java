@@ -2,6 +2,7 @@ package com.filmify.FilmiFy.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
+import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.UserFavoriteGenre.UserFavoriteGenre;
 import jakarta.persistence.*;
 
@@ -18,6 +19,7 @@ public class GenreModel {
 
     private List<FilmGenre> filmGenres;
 
+    @JsonIgnore
     private List<UserModel> users;
 
 
@@ -64,5 +66,13 @@ public class GenreModel {
                 "genre_id=" + genre_id +
                 ", genre_name='" + genre_name + '\'' +
                 '}';
+    }
+
+    public static GenreModel toModel(Genre genre){
+        GenreModel model = new GenreModel();
+        model.setGenre_id(genre.getGenre_id());
+        model.setGenre_name(genre.getGenre_name());
+
+        return model;
     }
 }

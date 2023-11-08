@@ -1,6 +1,8 @@
 package com.filmify.FilmiFy.Models;
 
+import com.filmify.FilmiFy.Entities.Room.Room;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
+import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
 import jakarta.persistence.*;
 
@@ -80,4 +82,16 @@ public class RoomModel {
                 ", creation_date=" + creation_date +
                 '}';
     }
+
+    public static RoomModel toModel(Room room){
+        RoomModel model = new RoomModel();
+        model.setRoom_id(room.getRoom_id());
+        model.setRoom_code(room.getRoom_code());
+        model.setRoom_name(room.getRoom_name());
+        model.setRoom_id(room.getRoom_id());
+        model.setCreation_date(room.getCreation_date());
+
+        return model;
+    }
+
 }

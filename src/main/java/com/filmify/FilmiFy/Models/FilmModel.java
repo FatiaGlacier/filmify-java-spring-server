@@ -1,5 +1,6 @@
 package com.filmify.FilmiFy.Models;
 
+import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
@@ -122,5 +123,19 @@ public class FilmModel {
                 ", film_duration_minutes=" + film_duration_minutes +
                 ", film_IMDb_rating=" + film_IMDb_rating +
                 '}';
+    }
+
+    public static FilmModel toModel(Film film){
+        FilmModel model = new FilmModel();
+
+        model.setFilm_id(film.getFilm_id());
+        model.setFilm_name(film.getFilm_name());
+        model.setFilm_link(film.getFilm_link());
+        model.setFilm_desc(film.getFilm_desc());
+        model.setFilm_year(film.getFilm_year());
+        model.setFilm_duration_minutes(film.getFilm_duration_minutes());
+        model.setFilm_IMDb_rating(film.getFilm_id());
+
+        return model;
     }
 }
