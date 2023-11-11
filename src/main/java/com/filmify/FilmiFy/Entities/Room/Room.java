@@ -1,6 +1,8 @@
 package com.filmify.FilmiFy.Entities.Room;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
+import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
 import jakarta.persistence.*;
 
@@ -30,6 +32,15 @@ public class Room {
 
     @OneToMany(mappedBy = "room")
     private List<RoomFilm> roomFilms;
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "user_room",
+            joinColumns = @JoinColumn(name = "ur_room_id"),
+            inverseJoinColumns = @JoinColumn(name = "ur_user_id")
+    )
+    private List<User> users;
 
     public Room() {
 

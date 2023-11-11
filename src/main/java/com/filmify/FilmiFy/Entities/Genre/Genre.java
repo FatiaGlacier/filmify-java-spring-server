@@ -1,6 +1,7 @@
 package com.filmify.FilmiFy.Entities.Genre;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.UserFavoriteGenre.UserFavoriteGenre;
@@ -31,12 +32,20 @@ public class Genre {
     @ManyToMany
     @JsonIgnore
     @JoinTable(
-            name = "userFavoriteGenre",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            name = "user_favorite_genre",
+            joinColumns = @JoinColumn(name = "ufg_genre_id"),
+            inverseJoinColumns = @JoinColumn(name = "ufg_user_id")
     )
     private List<User> users;
 
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "film_genre",
+            joinColumns = @JoinColumn(name = "fg_genre_id"),
+            inverseJoinColumns = @JoinColumn(name = "fg_film_id")
+    )
+    private List<Film> films;
 
     public Genre(){
 

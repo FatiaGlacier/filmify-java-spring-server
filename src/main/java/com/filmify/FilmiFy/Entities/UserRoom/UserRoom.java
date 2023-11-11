@@ -5,7 +5,7 @@ import com.filmify.FilmiFy.Entities.Room.Room;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "userroom")
+@Table(name = "user_room")
 public class UserRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,11 +13,11 @@ public class UserRoom {
     private Long user_room_id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "ur_user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "ur_room_id")
     private Room room;
 
     public UserRoom(){

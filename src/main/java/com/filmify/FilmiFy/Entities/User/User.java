@@ -1,6 +1,7 @@
 package com.filmify.FilmiFy.Entities.User;
 
 import com.filmify.FilmiFy.Entities.Genre.Genre;
+import com.filmify.FilmiFy.Entities.Room.Room;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.Entities.UserFavoriteGenre.UserFavoriteGenre;
 import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
@@ -59,12 +60,19 @@ public class User {
     private List<RoomFilm> roomFilms;
     @ManyToMany
     @JoinTable(
-            name = "userFavoriteGenre",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
+            name = "user_favorite_genre",
+            joinColumns = @JoinColumn(name = "ufg_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "ufg_genre_id")
     )
     private List<Genre> genres;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_room",
+            joinColumns = @JoinColumn(name = "ur_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "ur_room_id")
+    )
+    private List<Room> rooms;
     public User(){
 
     }
@@ -211,6 +219,14 @@ public class User {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     @Override

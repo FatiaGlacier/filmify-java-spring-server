@@ -1,7 +1,10 @@
 package com.filmify.FilmiFy.Entities.Film;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
+import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
+import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
 
@@ -35,6 +38,14 @@ public class Film {
 
     @OneToMany(mappedBy = "film")
     private List<FilmGenre> filmGenres;
+
+    @ManyToMany
+    @JoinTable(
+            name = "film_genre",
+            joinColumns = @JoinColumn(name = "fg_film_id"),
+            inverseJoinColumns = @JoinColumn(name = "fg_genre_id")
+    )
+    private List<Genre> genres;
 
     public Film() {
 
@@ -116,6 +127,14 @@ public class Film {
 
     public void setFilm_IMDb_rating(float film_IMDb_rating) {
         this.film_IMDb_rating = film_IMDb_rating;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.filmify.FilmiFy.Entities.Genre.Genre;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "filmgenre")
+@Table(name = "film_genre")
 public class FilmGenre {
 
     @Id
@@ -13,12 +13,19 @@ public class FilmGenre {
     @Column(name = "film_genre_id")
     private Long film_genre_id;
 
+
+    @Column(name = "fg_film_id")
+    private Long fg_film_id;
+
+    @Column(name = "fg_genre_id")
+    private Long fg_genre_id;
+
     @ManyToOne
-    @JoinColumn(name = "film_id")
+    @JoinColumn(name = "fg_film_id", insertable=false, updatable=false)
     private Film film;
 
     @ManyToOne
-    @JoinColumn(name = "genre_id")
+    @JoinColumn(name = "fg_genre_id", insertable=false, updatable=false)
     private Genre genre;
 
     public FilmGenre(){
@@ -58,6 +65,22 @@ public class FilmGenre {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public Long getFg_film_id() {
+        return fg_film_id;
+    }
+
+    public void setFg_film_id(Long fg_film_id) {
+        this.fg_film_id = fg_film_id;
+    }
+
+    public Long getFg_genre_id() {
+        return fg_genre_id;
+    }
+
+    public void setFg_genre_id(Long fg_genre_id) {
+        this.fg_genre_id = fg_genre_id;
     }
 
     @Override

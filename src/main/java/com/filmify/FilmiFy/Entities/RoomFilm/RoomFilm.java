@@ -6,7 +6,7 @@ import com.filmify.FilmiFy.Entities.Room.Room;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roomfilm")
+@Table(name = "room_film")
 public class RoomFilm {
 
     @Id
@@ -15,15 +15,15 @@ public class RoomFilm {
     private Long room_film_id;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "fr_room_id")
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "film_id")
+    @JoinColumn(name = "fr_film_id")
     private Film film;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "fr_user_id")
     private User user;
 
     public RoomFilm(){

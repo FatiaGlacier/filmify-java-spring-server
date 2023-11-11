@@ -2,10 +2,12 @@ package com.filmify.FilmiFy.Models;
 
 import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
+import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilmModel {
@@ -30,7 +32,10 @@ public class FilmModel {
 
     private List<FilmGenre> filmGenres;
 
+    private List<GenreModel> genres;
+
     public FilmModel() {
+        this.genres = new ArrayList<>();
 
     }
 
@@ -112,6 +117,14 @@ public class FilmModel {
         this.film_IMDb_rating = film_IMDb_rating;
     }
 
+    public List<GenreModel> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<GenreModel> genres) {
+        this.genres = genres;
+    }
+
     @Override
     public String toString() {
         return "Film{" +
@@ -135,6 +148,10 @@ public class FilmModel {
         model.setFilm_year(film.getFilm_year());
         model.setFilm_duration_minutes(film.getFilm_duration_minutes());
         model.setFilm_IMDb_rating(film.getFilm_id());
+
+        for(Genre genre: film.getGenres()){
+            model.getGenres().add(GenreModel.toModel(genre));
+        }
 
         return model;
     }
