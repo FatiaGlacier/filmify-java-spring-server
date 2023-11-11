@@ -1,5 +1,6 @@
 package com.filmify.FilmiFy.Entities.Film;
 
+import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
 import com.filmify.FilmiFy.Models.FilmModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,12 @@ public class FilmController {
 
     @GetMapping("/get-film-for-user")
     public List<FilmModel> getFilmForUser(@RequestParam(name = "user_id") Long user_id){
-        return filmService.getFilmForUser(user_id);
+        try{
+            return filmService.getFilmForUser(user_id);
+        }catch (UserNotFoundException e){
+            throw e;
+        }
+
     }
 
 }

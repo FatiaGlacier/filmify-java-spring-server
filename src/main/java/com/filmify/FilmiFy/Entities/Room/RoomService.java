@@ -2,6 +2,8 @@ package com.filmify.FilmiFy.Entities.Room;
 
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.User.UserRepository;
+import com.filmify.FilmiFy.Exceptions.RoomAlreadyExists;
+import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
 import com.filmify.FilmiFy.Models.RoomModel;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +39,13 @@ public class RoomService {
     public void addRoom(Long user_id, Room room) {
         Optional<User> foundedUser = userRepository.findById(user_id);
         if(foundedUser.isEmpty()){
-            throw new EntityNotFoundException("user not found");
+            throw new UserNotFoundException("User not found, wrong ID: " + user_id);
         }
 
+        Optional<Room> foundedRoom = roomRepository.findRoomByCode(room.getRoom_code());
+        if(foundedRoom.isPresent()){
+            throw new RoomAlreadyExists("Code already exists: " + room.getRoom_code());
+        }
         User user = foundedUser.get();
         user.getRooms().add(room);
 

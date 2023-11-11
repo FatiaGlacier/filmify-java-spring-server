@@ -1,8 +1,11 @@
 package com.filmify.FilmiFy.Entities.User;
 
 import com.filmify.FilmiFy.Entities.Genre.Genre;
+import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
+import com.filmify.FilmiFy.Exceptions.UserAlreadyExistsException;
+import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
+import com.filmify.FilmiFy.Exceptions.WrongPasswordException;
 import com.filmify.FilmiFy.Models.UserModel;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/user")
 public class UserController {
-
     private final UserService userService;
 
     @Autowired
@@ -27,32 +29,47 @@ public class UserController {
 
     @PostMapping("/add-user")
     public void registerNewUser(@RequestBody User user){
-        userService.addNewUser(user);
+        try{
+            userService.addNewUser(user);
+        }catch (UserAlreadyExistsException e){
+            throw e;
+        }
+
     }
 
     @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestParam(name = "user_name") String user_name, @RequestParam(name = "password") String password){
+    public ResponseEntity<?> login(@RequestParam(name = "user_name") String user_name,
+                                   @RequestParam(name = "password") String password){
         try {
             UserModel user = userService.login(user_name, password);
             return ResponseEntity.ok(user);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong password");
+        } catch (UserNotFoundException | WrongPasswordException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
     }
 
     @PutMapping("/add-user-fav-genre")
-    public void addUserFavoriteGenre(@RequestBody List<Genre> genres, @RequestParam(name = "user_id") Long user_id){
-        userService.addUserFavoriteGenres(genres, user_id);
+    public void addUserFavoriteGenre(@RequestBody List<Genre> genres,
+                                     @RequestParam(name = "user_id") Long user_id){
+        try{
+            userService.addUserFavoriteGenres(genres, user_id);
+        }catch (UserNotFoundException | GenreNotFoundException e){
+            throw e;
+        }
+
     }
 
-    @GetMapping("/get-user-genres")
+    @GetMapping("/get-user-genre")
     public ResponseEntity<?> getUserGenres(@RequestParam(name = "user_id") Long id){
-        UserModel userModel = userService.getUserById(id);
-        return ResponseEntity.ok(userModel.getGenres());
+        try{
+            UserModel userModel = userService.getUserById(id);
+            return ResponseEntity.ok(userModel.getGenres());
+        }catch (UserNotFoundException e){
+            throw e;
+        }
+
     }
 
 }

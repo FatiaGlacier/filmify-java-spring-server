@@ -1,5 +1,6 @@
 package com.filmify.FilmiFy.Entities.Room;
 
+import com.filmify.FilmiFy.Exceptions.RoomAlreadyExists;
 import com.filmify.FilmiFy.Models.RoomModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,11 @@ public class RoomController {
     @PostMapping("/add-room")
     public void addRoom(@RequestParam(name = "user_id") Long user_id,
                                      @RequestBody Room room){
-        roomService.addRoom(user_id, room);
+        try{
+            roomService.addRoom(user_id, room);
+        }catch (RoomAlreadyExists e){
+            throw e;
+        }
+
     }
 }

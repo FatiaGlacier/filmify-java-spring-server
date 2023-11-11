@@ -2,8 +2,11 @@ package com.filmify.FilmiFy.Entities.User;
 
 import com.filmify.FilmiFy.Entities.Genre.GenreRepository;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
+import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
+import com.filmify.FilmiFy.Exceptions.UserAlreadyExistsException;
+import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
+import com.filmify.FilmiFy.Exceptions.WrongPasswordException;
 import com.filmify.FilmiFy.Models.UserModel;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,18 +42,18 @@ public class UserService {
         //System.out.println(user);
         Optional<User> foundedOptionalUser;
 
-        foundedOptionalUser = userRepository
-                .findOptionalUserByName(user.getUser_name());
-
-        if(foundedOptionalUser.isPresent()){
-            throw new IllegalStateException("Name already exists");
-        }
+//        foundedOptionalUser = userRepository
+//                .findOptionalUserByName(user.getUser_name());
+//
+//        if(foundedOptionalUser.isPresent()){
+//            throw new UserAlreadyExistsException("Name already used:");
+//        }
 
         foundedOptionalUser = userRepository
                 .findUserByEmail(user.getUser_email());
 
         if(foundedOptionalUser.isPresent()){
-            throw new IllegalStateException("Email already exists");
+            throw new UserAlreadyExistsException("Email already used: " + user.getUser_email());
         }
 
         userRepository.save(user);
@@ -60,11 +63,11 @@ public class UserService {
 
         User user = userRepository.findUserByName(user_name);
         if(user == null){
-            throw new EntityNotFoundException("User not found");
+            throw new UserNotFoundException("User not found, wrong name: " + user_name);
         }
 
         if(!(user.getPassword().equals(password))){
-            throw new RuntimeException("Wrong password");//must be changed
+            throw new WrongPasswordException("Wrong password");
         }
 
         return UserModel.toModel(user);
@@ -73,14 +76,14 @@ public class UserService {
     public void addUserFavoriteGenres(List<Genre> genres, Long user_id) {
 
         Optional<User> foundedUser = userRepository.findById(user_id);
-        if(!(foundedUser.isPresent())){
-            throw new EntityNotFoundException("User not founded");
+        if(foundedUser.isEmpty()){
+            throw new UserNotFoundException("User not found, wrong ID: " + user_id);
         }
         User user = foundedUser.get();
         for(Genre genre: genres){
             Optional<Genre> foundedGenre = genreRepository.findOptionalGenreByName(genre.getGenre_name());
-            if(!(foundedGenre.isPresent())){
-                throw new EntityNotFoundException("Genre not founded");
+            if(foundedGenre.isEmpty()){
+                throw new GenreNotFoundException("Genre not found, wrong ID");
             }
             user.getGenres().add(foundedGenre.get());
         }
@@ -88,6 +91,10 @@ public class UserService {
     }
 
     public UserModel getUserById(Long id) {
-        return UserModel.toModel(userRepository.findById(id).get());
+        Optional<User> foundedUser = userRepository.findById(id);
+        if(foundedUser.isEmpty()){
+            throw new UserNotFoundException("User not found, wrong ID: " + id);
+        }
+        return UserModel.toModel(foundedUser.get());
     }
 }

@@ -3,6 +3,7 @@ package com.filmify.FilmiFy.Entities.Film;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.User.UserRepository;
+import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
 import com.filmify.FilmiFy.Models.FilmModel;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class FilmService {
     public List<FilmModel> getFilmForUser(Long user_id) {
         Optional<User> foundedUser = userRepository.findById(user_id);
         if(foundedUser.isEmpty()){
-            throw new EntityNotFoundException("User not founded");
+            throw new UserNotFoundException("User not found, wrong ID: " + user_id);
         }
         User user = foundedUser.get();
         List<FilmModel> filmModels = new ArrayList<>();
