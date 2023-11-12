@@ -49,7 +49,7 @@ public class FilmService {
         }
         User user = foundedUser.get();
         List<FilmModel> filmModels = new ArrayList<>();
-        List<Film> films = filmRepository.findAll();
+        List<Film> films = filmRepository.getFilmForUser(user_id);
         for(Film film: films){
             filmModels.add(FilmModel.toModel(film));
         }

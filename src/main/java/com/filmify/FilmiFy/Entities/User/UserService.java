@@ -83,7 +83,7 @@ public class UserService {
         for(Genre genre: genres){
             Optional<Genre> foundedGenre = genreRepository.findOptionalGenreByName(genre.getGenre_name());
             if(foundedGenre.isEmpty()){
-                throw new GenreNotFoundException("Genre not found, wrong ID");
+                throw new GenreNotFoundException("Genre not found, wrong Name");
             }
             user.getGenres().add(foundedGenre.get());
         }

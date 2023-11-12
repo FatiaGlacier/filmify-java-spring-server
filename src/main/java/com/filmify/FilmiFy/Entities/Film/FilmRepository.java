@@ -13,6 +13,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
             "(SELECT fg.fg_film_id FROM FilmGenre fg WHERE fg.fg_genre_id IN " +
             "(SELECT ufg.ufg_genre_id FROM UserFavoriteGenre ufg WHERE ufg.ufg_user_id = :id))")
     List<Film> getFilmForUser(@Param("id") Long id);
+
     @Query("SELECT f FROM Film f " +
             "WHERE f.film_name = :film_name " +
             "AND f.film_link = :film_link " +
