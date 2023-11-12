@@ -8,6 +8,7 @@ import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,8 +28,8 @@ public class Film {
     private int film_year;
     @Column(name = "film_duration_minutes")
     private int film_duration_minutes;
-    @Column(name = "film_IMDb_rating")
-    private float film_IMDb_rating;
+    @Column(name = "film_imdb_rating")
+    private float film_imdb_rating;
 
     @OneToMany(mappedBy = "film")
     private List<RoomFilm> roomFilms;
@@ -53,24 +54,24 @@ public class Film {
 
     public Film(Long film_id, String film_name, String film_link,
                 String film_desc, int film_year, int film_duration_minutes,
-                float film_IMDb_rating) {
+                float film_imdb_rating) {
         this.film_id = film_id;
         this.film_name = film_name;
         this.film_link = film_link;
         this.film_desc = film_desc;
         this.film_year = film_year;
         this.film_duration_minutes = film_duration_minutes;
-        this.film_IMDb_rating = film_IMDb_rating;
+        this.film_imdb_rating = film_imdb_rating;
     }
 
     public Film(String film_name, String film_link, String film_desc,
-                int film_year, int film_duration_minutes, float film_IMDb_rating) {
+                int film_year, int film_duration_minutes, float film_imdb_rating) {
         this.film_name = film_name;
         this.film_link = film_link;
         this.film_desc = film_desc;
         this.film_year = film_year;
         this.film_duration_minutes = film_duration_minutes;
-        this.film_IMDb_rating = film_IMDb_rating;
+        this.film_imdb_rating = film_imdb_rating;
     }
 
     public Long getFilm_id() {
@@ -122,11 +123,11 @@ public class Film {
     }
 
     public float getFilm_IMDb_rating() {
-        return film_IMDb_rating;
+        return film_imdb_rating;
     }
 
     public void setFilm_IMDb_rating(float film_IMDb_rating) {
-        this.film_IMDb_rating = film_IMDb_rating;
+        this.film_imdb_rating = film_IMDb_rating;
     }
 
     public List<Genre> getGenres() {
@@ -146,7 +147,7 @@ public class Film {
                 ", film_desc='" + film_desc + '\'' +
                 ", film_year=" + film_year +
                 ", film_duration_minutes=" + film_duration_minutes +
-                ", film_IMDb_rating=" + film_IMDb_rating +
+                ", film_IMDb_rating=" + film_imdb_rating +
                 '}';
     }
 }

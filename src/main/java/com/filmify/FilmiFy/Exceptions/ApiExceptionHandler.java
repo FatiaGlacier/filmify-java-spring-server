@@ -61,13 +61,26 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(RoomAlreadyExists.class)
     public ResponseEntity<Object> handleWrongPasswordException(RoomAlreadyExists e){
-        HttpStatus unauthorized = HttpStatus.UNAUTHORIZED;
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ApiException apiException = new ApiException(
                 e.getMessage(),
-                unauthorized,
+                badRequest,
                 ZonedDateTime.now(ZoneId.of("Europe/Kiev"))
         );
 
-        return new ResponseEntity<>(apiException, unauthorized);
+        return new ResponseEntity<>(apiException, badRequest);
     }
+
+    @ExceptionHandler(FilmAlreadyExistException.class)
+    public ResponseEntity<Object> handleWrongPasswordException(FilmAlreadyExistException e){
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                badRequest,
+                ZonedDateTime.now(ZoneId.of("Europe/Kiev"))
+        );
+
+        return new ResponseEntity<>(apiException, badRequest);
+    }
+
 }

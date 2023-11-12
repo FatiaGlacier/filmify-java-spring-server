@@ -1,8 +1,11 @@
 package com.filmify.FilmiFy.Entities.Film;
 
 import com.filmify.FilmiFy.Entities.Genre.Genre;
+import com.filmify.FilmiFy.Entities.Genre.GenreRepository;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.User.UserRepository;
+import com.filmify.FilmiFy.Exceptions.FilmAlreadyExistException;
+import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
 import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
 import com.filmify.FilmiFy.Models.FilmModel;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,10 +23,13 @@ public class FilmService {
 
     private UserRepository userRepository;
 
+    private GenreRepository genreRepository;
+
     @Autowired
-    public FilmService(FilmRepository filmRepository, UserRepository userRepository){
+    public FilmService(FilmRepository filmRepository, UserRepository userRepository, GenreRepository genreRepository){
         this.filmRepository = filmRepository;
         this.userRepository = userRepository;
+        this.genreRepository = genreRepository;
     }
 
     public List<FilmModel> getAll() {
@@ -49,5 +55,25 @@ public class FilmService {
         }
 
         return filmModels;
+    }
+
+    public void addFilm(Film film, List<Long> genreIds) {
+        Optional<Film> foundedFilm = filmRepository.findByParams(film.getFilm_name(),
+                film.getFilm_link(), film.getFilm_year(), film.getFilm_duration_minutes(),
+                film.getFilm_IMDb_rating());
+
+        if(foundedFilm.isPresent()){
+            throw new FilmAlreadyExistException("Film already exists");
+        }
+        film.setGenres(new ArrayList<>());
+        for(Long id: genreIds){
+            Optional<Genre> genre = genreRepository.findById(id);
+            if(genre.isEmpty()){
+                throw new GenreNotFoundException("Genre not found, wrong ID: " + id);
+            }
+            film.getGenres().add(genre.get());
+        }
+
+        filmRepository.save(film);
     }
 }

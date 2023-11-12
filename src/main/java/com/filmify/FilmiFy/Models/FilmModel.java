@@ -147,7 +147,7 @@ public class FilmModel {
         model.setFilm_desc(film.getFilm_desc());
         model.setFilm_year(film.getFilm_year());
         model.setFilm_duration_minutes(film.getFilm_duration_minutes());
-        model.setFilm_IMDb_rating(film.getFilm_id());
+        model.setFilm_IMDb_rating(film.getFilm_IMDb_rating());
 
         for(Genre genre: film.getGenres()){
             model.getGenres().add(GenreModel.toModel(genre));

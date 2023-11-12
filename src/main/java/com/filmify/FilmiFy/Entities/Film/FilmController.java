@@ -1,12 +1,12 @@
 package com.filmify.FilmiFy.Entities.Film;
 
+import com.filmify.FilmiFy.Exceptions.FilmAlreadyExistException;
+import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
 import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
 import com.filmify.FilmiFy.Models.FilmModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +31,16 @@ public class FilmController {
         try{
             return filmService.getFilmForUser(user_id);
         }catch (UserNotFoundException e){
+            throw e;
+        }
+
+    }
+
+    @PostMapping("/add-film")
+    public void addFilm(@RequestBody Film film, @RequestParam(name = "genre_id") List<Long> genreIds){
+        try{
+            filmService.addFilm(film,genreIds);
+        }catch (FilmAlreadyExistException | GenreNotFoundException e){
             throw e;
         }
 
