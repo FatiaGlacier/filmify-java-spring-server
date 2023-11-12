@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class RoomService {
@@ -41,14 +42,24 @@ public class RoomService {
         if(foundedUser.isEmpty()){
             throw new UserNotFoundException("User not found, wrong ID: " + user_id);
         }
-
-        Optional<Room> foundedRoom = roomRepository.findRoomByCode(room.getRoom_code());
-        if(foundedRoom.isPresent()){
-            throw new RoomAlreadyExists("Code already exists: " + room.getRoom_code());
+        Random  random = new Random();
+        Optional<Room> foundedRoom;
+        String code;
+        while(true){
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < 6; i++){
+                sb.append(random.nextInt(10));
+            }
+            code = sb.toString();
+            foundedRoom = roomRepository.findRoomByCode(code);
+            if(foundedRoom.isEmpty()){
+                break;
+            }
         }
-        User user = foundedUser.get();
-        user.getRooms().add(room);
 
+        User user = foundedUser.get();
+        room.setRoom_code(code);
+        user.getRooms().add(room);
         roomRepository.save(room);
     }
 
