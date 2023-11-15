@@ -59,6 +59,9 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /*
+    * змінити нік на пошту
+    * */
     public UserModel login(String user_name, String password){
 
         User user = userRepository.findUserByName(user_name);
