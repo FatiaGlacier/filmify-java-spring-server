@@ -51,6 +51,7 @@ public class Genre {
 
     }
 
+
     public Genre(Long genre_id, String genre_name) {
         this.genre_id = genre_id;
         this.genre_name = genre_name;

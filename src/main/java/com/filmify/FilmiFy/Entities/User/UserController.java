@@ -28,16 +28,17 @@ public class UserController {
     }
 
     @PostMapping("/add-user")
-    public void registerNewUser(@RequestBody User user){
+    public ResponseEntity<?> registerNewUser(@RequestBody User user){
         try{
             userService.addNewUser(user);
+            return ResponseEntity.ok(UserModel.toModel(user));
         }catch (UserAlreadyExistsException e){
             throw e;
         }
 
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam(name = "email") String email,
                                    @RequestParam(name = "password") String password){
         try {
@@ -51,10 +52,11 @@ public class UserController {
     }
 
     @PutMapping("/add-user-fav-genre")
-    public void addUserFavoriteGenre(@RequestBody List<Genre> genres,
+    public ResponseEntity<?> addUserFavoriteGenre(@RequestBody List<Genre> genres,
                                      @RequestParam(name = "user_id") Long user_id){
         try{
             userService.addUserFavoriteGenres(genres, user_id);
+            return ResponseEntity.ok(userService.getUserById(user_id));
         }catch (UserNotFoundException | GenreNotFoundException e){
             throw e;
         }

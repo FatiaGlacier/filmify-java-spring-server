@@ -38,7 +38,7 @@ public class UserService {
         return userModels;
     }
 
-    public void addNewUser(User user) {
+    public UserModel addNewUser(User user) {
         //System.out.println(user);
         Optional<User> foundedOptionalUser;
 
@@ -49,14 +49,15 @@ public class UserService {
 //            throw new UserAlreadyExistsException("Name already used:");
 //        }
 
-        foundedOptionalUser = userRepository
-                .findUserByEmail(user.getUser_email());
+        foundedOptionalUser = userRepository.findUserByEmail(user.getUser_email());
 
         if(foundedOptionalUser.isPresent()){
             throw new UserAlreadyExistsException("Email already used: " + user.getUser_email());
         }
 
         userRepository.save(user);
+        user.setGenres(new ArrayList<>());
+        return  UserModel.toModel(user);
     }
 
     /*
