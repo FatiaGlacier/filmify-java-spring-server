@@ -38,10 +38,10 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestParam(name = "user_name") String user_name,
+    public ResponseEntity<?> login(@RequestParam(name = "email") String email,
                                    @RequestParam(name = "password") String password){
         try {
-            UserModel user = userService.login(user_name, password);
+            UserModel user = userService.login(email, password);
             return ResponseEntity.ok(user);
         } catch (UserNotFoundException | WrongPasswordException e) {
             throw e;
@@ -71,5 +71,4 @@ public class UserController {
         }
 
     }
-
 }

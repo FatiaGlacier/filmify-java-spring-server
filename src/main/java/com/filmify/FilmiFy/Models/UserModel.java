@@ -187,7 +187,7 @@ public class UserModel {
 //        this.roomFilms = roomFilms;
 //    }
 
-    @JsonIgnore
+
     public List<GenreModel> getGenres() {
         return genres;
     }

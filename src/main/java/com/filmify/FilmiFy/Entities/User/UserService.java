@@ -62,13 +62,13 @@ public class UserService {
     /*
     * змінити нік на пошту
     * */
-    public UserModel login(String user_name, String password){
+    public UserModel login(String email, String password){
 
-        User user = userRepository.findUserByName(user_name);
-        if(user == null){
-            throw new UserNotFoundException("User not found, wrong name: " + user_name);
+        Optional<User> foundedUser = userRepository.findUserByEmail(email);
+        if(foundedUser.isEmpty()){
+            throw new UserNotFoundException("User not found, wrong email: " + email);
         }
-
+        User user = foundedUser.get();
         if(!(user.getPassword().equals(password))){
             throw new WrongPasswordException("Wrong password");
         }
@@ -95,7 +95,7 @@ public class UserService {
 
     public UserModel getUserById(Long id) {
         Optional<User> foundedUser = userRepository.findById(id);
-        if(foundedUser.isEmpty()){
+        if (foundedUser.isEmpty()) {
             throw new UserNotFoundException("User not found, wrong ID: " + id);
         }
         return UserModel.toModel(foundedUser.get());
