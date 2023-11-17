@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/genre")
+@CrossOrigin
 public class GenreController {
 
     private final GenreService genreService;

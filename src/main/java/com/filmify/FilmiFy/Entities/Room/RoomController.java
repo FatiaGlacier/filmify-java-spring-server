@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/room")
+@CrossOrigin
 public class RoomController {
 
     private final RoomService roomService;
