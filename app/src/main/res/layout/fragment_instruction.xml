@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/blur_background"
+    tools:context=".Fragments.InstructionFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="316dp"
+                    android:layout_height="316dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:src="@drawable/logo" />
+
+                <!-- TextView overlapping ImageView -->
+                <TextView
+                    android:id="@+id/myTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/pacifico_regular"
+                    android:text="Навігація по застосунку:"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:translationY="50dp" />
+
+                <TextView
+                    android:id="@+id/myTextViewRed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/pacifico_regular"
+                    android:text="Навігація по застосунку:"
+                    android:textColor="@color/red"
+                    android:textSize="24dp"
+                    android:translationX="2dp"
+                    android:translationY="50dp" />
+
+                <TextView
+                    android:id="@+id/myTextViewWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/pacifico_regular"
+                    android:text="Навігація по застосунку:"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:translationY="50dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp">
+
+                <ImageView
+                    android:id="@+id/filmsIconView"
+                    android:layout_width="111dp"
+                    android:layout_height="52dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_films" />
+
+                <TextView
+                    android:id="@+id/filmsInstructionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toEndOf="@+id/filmsIconView"
+                    android:fontFamily="@font/montserrat_alternates_bold"
+                    android:text="Перегляд усіх фільмів на FilmiFy"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/filmsInstructionUsing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/filmsIconView"
+                    android:layout_alignStart="@+id/filmsIconView"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text="Пошук фільмів з фільтрацією та сортуванням та їх додання до власної бібліотеки фільмів"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/roomsIconView"
+                    android:layout_width="111dp"
+                    android:layout_height="52dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_rooms"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignStart="@+id/filmsInstructionUsing"
+                    android:layout_below="@+id/filmsInstructionUsing"
+                    />
+
+                <TextView
+                    android:id="@+id/roomsInstructionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toEndOf="@+id/filmsIconView"
+                    android:fontFamily="@font/montserrat_alternates_bold"
+                    android:layout_marginTop="30dp"
+                    android:text="Перегляд кімнат для вибору фільмів з друзями"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:layout_below="@+id/filmsInstructionUsing"/>
+
+                <TextView
+                    android:id="@+id/roomsInstructionUsing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/roomsInstructionName"
+                    android:layout_alignStart="@+id/roomsIconView"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text="Створіть нову кімнату чи увійдіть до існуючої та обирайте разом"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/settingsIconView"
+                    android:layout_width="111dp"
+                    android:layout_height="52dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_settings"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignStart="@+id/roomsInstructionUsing"
+                    android:layout_below="@+id/roomsInstructionUsing"/>
+
+                <TextView
+                    android:id="@+id/settingsInstructionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toEndOf="@+id/settingsIconView"
+                    android:fontFamily="@font/montserrat_alternates_bold"
+                    android:text="Налаштування застосунку"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:layout_below="@+id/roomsInstructionUsing"/>
+
+                <TextView
+                    android:id="@+id/settingsInstructionUsing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/settingsIconView"
+                    android:layout_alignStart="@+id/settingsIconView"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text="Меню налаштування надає можливість змінити будь-яку власну інформацію"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

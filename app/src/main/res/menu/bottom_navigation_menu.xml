@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filmsFragment"
+        android:icon="@drawable/ic_films"
+        android:title="Films" />
+    <item
+        android:id="@+id/roomsFragment"
+        android:icon="@drawable/ic_rooms"
+        android:title="Rooms" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings"/>
+    <item
+        android:id="@+id/placeholder"
+        android:title=""
+        android:icon="@android:color/transparent"
+        android:checked="true"
+        android:visible="false" />
+</menu>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/filmsFragment">
+
+    <fragment
+        android:id="@+id/filmsFragment"
+        android:name="com.example.filmify.Fragments.FilmsFragment"
+        android:label="fragment_films"
+        tools:layout="@layout/fragment_films" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.filmify.Fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/roomsFragment"
+        android:name="com.example.filmify.Fragments.RoomsFragment"
+        android:label="fragment_rooms"
+        tools:layout="@layout/fragment_rooms" />
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/instructionFragment"-->
+    <!--        android:name="com.example.filmify.Fragments.InstructionFragment"-->
+    <!--        android:label="fragment_instruction"-->
+    <!--        tools:layout="@layout/fragment_instruction" />-->
+
+<!--    <action-->
+<!--        android:id="@+id/lanchingInstruction"-->
+<!--        app:destination="@layout/fragment_instruction" />-->
+
+
+</navigation>

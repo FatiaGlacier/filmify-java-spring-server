@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/popup_background"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/allergenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pacifico_regular"
+            android:text="Увійти по коду"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="25dp"
+            android:textAlignment="center" />
+
+
+        <TextView
+            android:id="@+id/belowTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/montserrat_alternates_regular"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Для того, щоб приєднатися до вже створеної кімнати введіть її код сюди:"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/code_background">
+
+            <!--        <EditText-->
+            <!--            android:id="@+id/editTextCode"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:fontFamily="@font/montserrat_alternates_regular"-->
+            <!--            android:inputType="number"-->
+            <!--            android:layout_centerHorizontal="true"-->
+            <!--            android:maxLength="13"-->
+            <!--            android:text="_ _ _ - _ _ _"-->
+            <!--            android:textSize="24dp" />-->
+            <!--            <EditText-->
+            <!--                android:id="@+id/codeEditText"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:background="@android:color/transparent"-->
+            <!--                android:fontFamily="monospace"-->
+            <!--                android:gravity="center"-->
+            <!--                android:imeOptions="actionDone"-->
+            <!--                android:inputType="textCapCharacters"-->
+            <!--                android:letterSpacing="0.5"-->
+            <!--                android:maxLength="7"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:textSize="24sp" />-->
+
+            <LinearLayout
+                android:id="@+id/underline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal" >
+
+                <!-- Underline placeholders using TextViews -->
+
+                <EditText
+                    android:id="@+id/firstDigit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text=""
+                    android:textSize="24dp"/>
+
+                <EditText
+                    android:id="@+id/secondDigit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text=""
+                    android:textSize="24dp"/>
+
+                <EditText
+                    android:id="@+id/thirdDigit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text=""
+                    android:textSize="24dp"/>
+
+                <TextView
+                    android:id="@+id/underline1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text="-"
+                    android:textSize="24dp" />
+
+                <EditText
+                    android:id="@+id/forthDigit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text=""
+                    android:textSize="24dp"/>
+
+                <EditText
+                    android:id="@+id/fifthDigit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text=""
+                    android:textSize="24dp"/>
+
+                <EditText
+                    android:id="@+id/sixthDigit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:fontFamily="@font/montserrat_alternates_regular"
+                    android:text=""
+                    android:textSize="24dp"/>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/joinRoomButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Увійти"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="23dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/pacifico_regular"
+            app:cornerRadius="10dp">
+        </com.google.android.material.button.MaterialButton>
+
+    </LinearLayout>
+</RelativeLayout>
