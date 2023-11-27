@@ -3,6 +3,7 @@ package com.filmify.FilmiFy.Entities.FilmGenre;
 import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "film_genre")

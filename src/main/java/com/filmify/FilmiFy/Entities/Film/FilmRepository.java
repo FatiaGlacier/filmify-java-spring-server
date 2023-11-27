@@ -25,4 +25,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
                                 @Param("film_year") int film_year,
                                 @Param("film_duration_minutes") int film_duration_minutes,
                                 @Param("film_imdb_rating") float film_imdb_rating);
+
+    @Query("SELECT f FROM Film f WHERE f.film_name = :film_name")
+    Optional<Film> findByName(@Param("film_name") String name);
 }

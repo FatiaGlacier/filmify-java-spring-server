@@ -8,6 +8,8 @@ import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 public class FilmModel {
@@ -26,6 +28,8 @@ public class FilmModel {
 
     private float film_IMDb_rating;
 
+    private String image;
+
     private List<RoomFilm> roomFilms;
 
     private List<UserUploading> userUploadings;
@@ -41,7 +45,7 @@ public class FilmModel {
 
     public FilmModel(Long film_id, String film_name, String film_link,
                      String film_desc, int film_year, int film_duration_minutes,
-                     float film_IMDb_rating) {
+                     float film_IMDb_rating, String image) {
         this.film_id = film_id;
         this.film_name = film_name;
         this.film_link = film_link;
@@ -49,16 +53,18 @@ public class FilmModel {
         this.film_year = film_year;
         this.film_duration_minutes = film_duration_minutes;
         this.film_IMDb_rating = film_IMDb_rating;
+        this.image = image;
     }
 
     public FilmModel(String film_name, String film_link, String film_desc,
-                     int film_year, int film_duration_minutes, float film_IMDb_rating) {
+                     int film_year, int film_duration_minutes, float film_IMDb_rating, String image) {
         this.film_name = film_name;
         this.film_link = film_link;
         this.film_desc = film_desc;
         this.film_year = film_year;
         this.film_duration_minutes = film_duration_minutes;
         this.film_IMDb_rating = film_IMDb_rating;
+        this.image = image;
     }
 
     public Long getFilm_id() {
@@ -125,9 +131,17 @@ public class FilmModel {
         this.genres = genres;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return "Film{" +
+        return "FilmModel{" +
                 "film_id=" + film_id +
                 ", film_name='" + film_name + '\'' +
                 ", film_link='" + film_link + '\'' +
@@ -135,6 +149,8 @@ public class FilmModel {
                 ", film_year=" + film_year +
                 ", film_duration_minutes=" + film_duration_minutes +
                 ", film_IMDb_rating=" + film_IMDb_rating +
+                ", image=" + image +
+                ", genres=" + genres +
                 '}';
     }
 
@@ -148,7 +164,8 @@ public class FilmModel {
         model.setFilm_year(film.getFilm_year());
         model.setFilm_duration_minutes(film.getFilm_duration_minutes());
         model.setFilm_IMDb_rating(film.getFilm_IMDb_rating());
-
+        String encoded = Base64.getEncoder().encodeToString(film.getImage());
+        model.setImage(encoded);
         for(Genre genre: film.getGenres()){
             model.getGenres().add(GenreModel.toModel(genre));
         }

@@ -3,6 +3,7 @@ package com.filmify.FilmiFy.Entities.UserFilm;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.Film.Film;
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "user_film")
@@ -11,6 +12,12 @@ public class UserFilm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_film_id")
     private Long user_film_id;
+
+//    @Column(name = "uf_user_id")
+//    private Long uf_user_id;
+//
+//    @Column(name = "uf_film_id")
+//    private Long uf_film_id;
 
     @ManyToOne
     @JoinColumn(name = "uf_user_id")
@@ -58,6 +65,22 @@ public class UserFilm {
     public void setFilm(Film film) {
         this.film = film;
     }
+
+//    public Long getUf_user_id() {
+//        return uf_user_id;
+//    }
+//
+//    public void setUf_user_id(Long uf_user_id) {
+//        this.uf_user_id = uf_user_id;
+//    }
+//
+//    public Long getUf_film_id() {
+//        return uf_film_id;
+//    }
+//
+//    public void setUf_film_id(Long uf_film_id) {
+//        this.uf_film_id = uf_film_id;
+//    }
 
     @Override
     public String toString() {

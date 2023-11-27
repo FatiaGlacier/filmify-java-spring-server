@@ -1,6 +1,7 @@
 package com.filmify.FilmiFy.Entities.Film;
 
 import com.filmify.FilmiFy.Exceptions.FilmAlreadyExistException;
+import com.filmify.FilmiFy.Exceptions.FilmNotFoundException;
 import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
 import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
 import com.filmify.FilmiFy.Models.FilmModel;
@@ -42,6 +43,16 @@ public class FilmController {
         try{
             filmService.addFilm(film,genreIds);
         }catch (FilmAlreadyExistException | GenreNotFoundException e){
+            throw e;
+        }
+
+    }
+
+    @GetMapping("/find-by-name")
+    public ResponseEntity<?> findFilmByFilm(@RequestParam(name = "name") String name){
+        try{
+            return ResponseEntity.ok(filmService.findFilmByName(name));
+        }catch (FilmNotFoundException e){
             throw e;
         }
 

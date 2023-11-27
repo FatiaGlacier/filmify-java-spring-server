@@ -6,12 +6,15 @@ import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
+import com.filmify.FilmiFy.Models.FilmModel;
+import com.filmify.FilmiFy.Models.GenreModel;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Cacheable(false)
 @Table(name = "film")
 public class Film {
     @Id
@@ -30,6 +33,9 @@ public class Film {
     private int film_duration_minutes;
     @Column(name = "film_imdb_rating")
     private float film_imdb_rating;
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
 
     @OneToMany(mappedBy = "film")
     private List<RoomFilm> roomFilms;
@@ -40,7 +46,16 @@ public class Film {
     @OneToMany(mappedBy = "film")
     private List<FilmGenre> filmGenres;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinTable(
+            name = "user_film",
+            joinColumns = @JoinColumn(name = "uf_film_id"),
+            inverseJoinColumns = @JoinColumn(name = "uf_user_id")
+    )
+    private List<User> users;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "film_genre",
             joinColumns = @JoinColumn(name = "fg_film_id"),
@@ -54,7 +69,7 @@ public class Film {
 
     public Film(Long film_id, String film_name, String film_link,
                 String film_desc, int film_year, int film_duration_minutes,
-                float film_imdb_rating) {
+                float film_imdb_rating, byte[] image) {
         this.film_id = film_id;
         this.film_name = film_name;
         this.film_link = film_link;
@@ -62,16 +77,18 @@ public class Film {
         this.film_year = film_year;
         this.film_duration_minutes = film_duration_minutes;
         this.film_imdb_rating = film_imdb_rating;
+        this.image = image;
     }
 
     public Film(String film_name, String film_link, String film_desc,
-                int film_year, int film_duration_minutes, float film_imdb_rating) {
+                int film_year, int film_duration_minutes, float film_imdb_rating, byte[] image) {
         this.film_name = film_name;
         this.film_link = film_link;
         this.film_desc = film_desc;
         this.film_year = film_year;
         this.film_duration_minutes = film_duration_minutes;
         this.film_imdb_rating = film_imdb_rating;
+        this.image = image;
     }
 
     public Long getFilm_id() {
@@ -136,6 +153,23 @@ public class Film {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

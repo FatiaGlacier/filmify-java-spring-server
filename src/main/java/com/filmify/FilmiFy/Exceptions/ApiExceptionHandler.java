@@ -83,4 +83,16 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(apiException, badRequest);
     }
 
+    @ExceptionHandler(FilmNotFoundException.class)
+    public ResponseEntity<Object> handleWrongPasswordException(FilmNotFoundException e){
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                badRequest,
+                ZonedDateTime.now(ZoneId.of("Europe/Kiev"))
+        );
+
+        return new ResponseEntity<>(apiException, badRequest);
+    }
+
 }

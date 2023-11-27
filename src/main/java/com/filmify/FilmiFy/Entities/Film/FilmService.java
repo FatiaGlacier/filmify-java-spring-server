@@ -5,6 +5,7 @@ import com.filmify.FilmiFy.Entities.Genre.GenreRepository;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.User.UserRepository;
 import com.filmify.FilmiFy.Exceptions.FilmAlreadyExistException;
+import com.filmify.FilmiFy.Exceptions.FilmNotFoundException;
 import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
 import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
 import com.filmify.FilmiFy.Models.FilmModel;
@@ -75,5 +76,14 @@ public class FilmService {
         }
 
         filmRepository.save(film);
+    }
+
+    public FilmModel findFilmByName(String name) {
+        Optional<Film> foundedFilm = filmRepository.findByName(name);
+        if(foundedFilm.isEmpty()){
+            throw new FilmNotFoundException("Film not found, wrong name: " + name);
+        }
+
+        return FilmModel.toModel(foundedFilm.get());
     }
 }

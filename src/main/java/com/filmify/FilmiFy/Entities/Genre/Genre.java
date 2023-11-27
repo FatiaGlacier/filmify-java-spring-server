@@ -93,11 +93,11 @@ public class Genre {
                 '}';
     }
 
-    public static GenreModel toModel(Genre genre){
-        GenreModel model = new GenreModel();
-        model.setGenre_id(genre.getGenre_id());
-        model.setGenre_name(genre.getGenre_name());
-
-        return model;
-    }
+//    public static GenreModel toModel(Genre genre){
+//        GenreModel model = new GenreModel();
+//        model.setGenre_id(genre.getGenre_id());
+//        model.setGenre_name(genre.getGenre_name());
+//
+//        return model;
+//    }
 }

@@ -1,5 +1,6 @@
 package com.filmify.FilmiFy.Entities.User;
 
+import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.Room.Room;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
@@ -9,12 +10,14 @@ import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Cacheable(false)
 @Table(name = "user")
 public class User {
     @Id
@@ -58,13 +61,36 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<RoomFilm> roomFilms;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_favorite_genre",
             joinColumns = @JoinColumn(name = "ufg_user_id"),
             inverseJoinColumns = @JoinColumn(name = "ufg_genre_id")
     )
     private List<Genre> genres;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_film",
+            joinColumns = @JoinColumn(name = "uf_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "uf_film_id")
+    )
+    private List<Film> films;
+
+//    public void addFilm(Film film) {
+//        if (films == null) {
+//            films = new ArrayList<>();
+//        }
+//        films.add(film);
+//        film.getUsers().add(this);
+//    }
+//
+//    public void removeFilm(Film film) {
+//        if (films != null) {
+//            films.remove(film);
+//            film.getUsers().remove(this);
+//        }
+//    }
 
     @ManyToMany
     @JoinTable(
@@ -227,6 +253,14 @@ public class User {
 
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
     }
 
     @Override

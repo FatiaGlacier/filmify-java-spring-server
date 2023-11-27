@@ -1,10 +1,7 @@
 package com.filmify.FilmiFy.Entities.User;
 
 import com.filmify.FilmiFy.Entities.Genre.Genre;
-import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
-import com.filmify.FilmiFy.Exceptions.UserAlreadyExistsException;
-import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
-import com.filmify.FilmiFy.Exceptions.WrongPasswordException;
+import com.filmify.FilmiFy.Exceptions.*;
 import com.filmify.FilmiFy.Models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,4 +71,36 @@ public class UserController {
         }
 
     }
+
+    @PostMapping("/add-liked-film")
+    public ResponseEntity<?> addLikedFilm(@RequestParam(name = "user_id") Long user_id,
+                                          @RequestParam(name = "film_id") Long film_id){
+        try{
+            UserModel userModel = userService.addLikedFilm(user_id, film_id);
+            return ResponseEntity.ok(userModel);
+        }catch (UserNotFoundException | FilmNotFoundException e){
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/delete-liked-film")
+    public ResponseEntity<?> deleteLikedFilm(@RequestParam(name = "user_id") Long user_id,
+                                          @RequestParam(name = "film_id") Long film_id){
+        try{
+            UserModel userModel = userService.deleteLikedFilm(user_id, film_id);
+            return ResponseEntity.ok(userModel);
+        }catch (UserNotFoundException | FilmNotFoundException e){
+            throw e;
+        }
+    }
+
+//    @PutMapping("/change-userInfo")
+//    public ResponseEntity<?> changeUserInfo(@RequestBody User user, @RequestParam(name = "user_id") Long id){
+//        try{
+//            UserModel userModel = userService.changeUserInfo(user, id);
+//            return ResponseEntity.ok(userModel);
+//        }catch (UserNotFoundException e){
+//            throw e;
+//        }
+//    }
 }

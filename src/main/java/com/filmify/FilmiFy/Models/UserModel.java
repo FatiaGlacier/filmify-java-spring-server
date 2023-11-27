@@ -1,6 +1,7 @@
 package com.filmify.FilmiFy.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.Entities.User.User;
@@ -45,8 +46,11 @@ public class UserModel {
 
     private List<GenreModel> genres;
 
+    private List<FilmModel> films;
+
     public UserModel(){
         this.genres = new ArrayList<>();
+        this.films = new ArrayList<>();
     }
 
     //For login
@@ -67,6 +71,7 @@ public class UserModel {
         this.registration_date = registration_date;
         this.is_admin = is_admin;
         this.genres = new ArrayList<>();
+        this.films = new ArrayList<>();
     }
 
     public UserModel(String user_name, String user_email, String password,
@@ -80,6 +85,7 @@ public class UserModel {
         this.registration_date = registration_date;
         this.is_admin = is_admin;
         this.genres = new ArrayList<>();
+        this.films = new ArrayList<>();
     }
 
     public Long getUser_id() {
@@ -147,46 +153,13 @@ public class UserModel {
         this.is_admin = is_admin;
     }
 
-//    public List<UserRoom> getUserRooms() {
-//        return userRooms;
-//    }
-//
-//    public void setUserRooms(List<UserRoom> userRooms) {
-//        this.userRooms = userRooms;
-//    }
-//
-//    public List<UserFilm> getUserFilms() {
-//        return userFilms;
-//    }
-//
-//    public void setUserFilms(List<UserFilm> userFilms) {
-//        this.userFilms = userFilms;
-//    }
-//
-//    public List<UserUploading> getUserUploadings() {
-//        return userUploadings;
-//    }
-//
-//    public void setUserUploadings(List<UserUploading> userUploadings) {
-//        this.userUploadings = userUploadings;
-//    }
-//
-//    public List<UserFavoriteGenre> getUserFavoriteGenres() {
-//        return userFavoriteGenres;
-//    }
-//
-//    public void setUserFavoriteGenres(List<UserFavoriteGenre> userFavoriteGenres) {
-//        this.userFavoriteGenres = userFavoriteGenres;
-//    }
-//
-//    public List<RoomFilm> getRoomFilms() {
-//        return roomFilms;
-//    }
-//
-//    public void setRoomFilms(List<RoomFilm> roomFilms) {
-//        this.roomFilms = roomFilms;
-//    }
+    public List<FilmModel> getFilms() {
+        return films;
+    }
 
+    public void setFilms(List<FilmModel> films) {
+        this.films = films;
+    }
 
     public List<GenreModel> getGenres() {
         return genres;
@@ -221,9 +194,11 @@ public class UserModel {
         model.setRegistration_date(user.getRegistration_date());
         model.setIs_admin(user.getIs_admin());
         for(Genre genre: user.getGenres()){
-            model.getGenres().add(Genre.toModel(genre));
+            model.getGenres().add(GenreModel.toModel(genre));
         }
-
+        for(Film film : user.getFilms()){
+            model.getFilms().add(FilmModel.toModel(film));
+        }
         return model;
     }
 }
