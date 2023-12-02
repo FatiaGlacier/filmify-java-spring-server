@@ -1,21 +1,18 @@
 package com.filmify.FilmiFy.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
-import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.Entities.User.User;
-import com.filmify.FilmiFy.Entities.UserFavoriteGenre.UserFavoriteGenre;
 import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
-import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
-import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
-import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnTransformer;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class UserModel {
 
     private Long user_id;
@@ -45,6 +42,7 @@ public class UserModel {
 //    private List<RoomFilm> roomFilms;
 
     private List<GenreModel> genres;
+
 
     private List<FilmModel> films;
 
@@ -196,8 +194,8 @@ public class UserModel {
         for(Genre genre: user.getGenres()){
             model.getGenres().add(GenreModel.toModel(genre));
         }
-        for(Film film : user.getFilms()){
-            model.getFilms().add(FilmModel.toModel(film));
+        for(UserFilm userFilm : user.getUserFilms()){
+            model.getFilms().add(FilmModel.toModel(userFilm.getFilm()));
         }
         return model;
     }

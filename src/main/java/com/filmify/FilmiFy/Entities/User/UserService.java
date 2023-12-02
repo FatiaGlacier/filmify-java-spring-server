@@ -4,10 +4,15 @@ import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.Film.FilmRepository;
 import com.filmify.FilmiFy.Entities.Genre.GenreRepository;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
+import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
+import com.filmify.FilmiFy.Entities.UserFilm.UserFilmRepository;
 import com.filmify.FilmiFy.Exceptions.*;
 import com.filmify.FilmiFy.Models.UserModel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,25 +20,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     private final UserRepository userRepository;
-
+    private final UserFilmRepository userFilmRepository;
     private final GenreRepository genreRepository;
     private final FilmRepository filmRepository;
 
-    @Autowired
-    public UserService(UserRepository userRepository, GenreRepository genreRepository, FilmRepository filmRepository){
-        this.userRepository = userRepository;
-        this.genreRepository = genreRepository;
-        this.filmRepository = filmRepository;
-    }
+//    @Autowired
+//    public UserService(UserRepository userRepository, UserFilmRepository userFilmRepository, GenreRepository genreRepository, FilmRepository filmRepository){
+//        this.userRepository = userRepository;
+//        this.userFilmRepository = userFilmRepository;
+//        this.genreRepository = genreRepository;
+//        this.filmRepository = filmRepository;
+//    }
 
     public List<UserModel> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -115,36 +124,54 @@ public class UserService {
             throw new UserNotFoundException("User not found, wrong ID: " + user_id);
         }
         User user = foundedUser.get();
-
+        log.info(user.toString());
         Optional<Film> foundedFilm = filmRepository.findById(film_id);
         if(foundedFilm.isEmpty()){
             throw new FilmNotFoundException("Film not found, wrong ID: " + film_id);
         }
         Film film = foundedFilm.get();
+        UserFilm userFilm = new UserFilm();
+        userFilm.setUser(user);
+        userFilm.setFilm(film);
+        user.addToUserFilms(userFilm);
+        film.addToUserFilms(userFilm);
 
-        user.getFilms().add(film);
-        userRepository.save(user);
-
+        userFilmRepository.saveAndFlush(userFilm);
         return UserModel.toModel(user);
     }
     @Transactional
-    public UserModel deleteLikedFilm(Long user_id, Long film_id) {
+    public UserModel deleteLikedFilm(long user_id, long film_id) {
         Optional<User> foundedUser = userRepository.findById(user_id);
-        if(foundedUser.isEmpty()){
+        if (foundedUser.isEmpty()) {
             throw new UserNotFoundException("User not found, wrong ID: " + user_id);
         }
         User user = foundedUser.get();
 
         Optional<Film> foundedFilm = filmRepository.findById(film_id);
-        if(foundedFilm.isEmpty()){
+        if (foundedFilm.isEmpty()) {
             throw new FilmNotFoundException("Film not found, wrong ID: " + film_id);
         }
         Film film = foundedFilm.get();
 
-        user.getFilms().remove(film);
-        userRepository.save(user);
+        Optional<UserFilm> foundUserFilm = userFilmRepository.findByUserIdAndFilmId(user_id, film_id);
+        if (foundUserFilm.isEmpty()) {
+            throw new FilmNotFoundException("UserFilm not found, wrong ID: " + film_id);
+        }
+//        List<UserFilm> filmsToRemove = new ArrayList<>();
+//
+//        UserFilm userFilm = new UserFilm();
+//        userFilm.setUser(user);
+//        userFilm.setFilm(film);
 
-        return UserModel.toModel(user);
+//        user.deleteFromUserFilm(userFilm);
+//        film.deleteFromUserFilm(userFilm);
+
+//        userRepository.saveAndFlush(user);
+//        filmRepository.saveAndFlush(film);
+        UserFilm userFilm = foundUserFilm.get();
+//        userFilmRepository.delete(userFilm);
+        userFilmRepository.removeById(userFilm.getUser_film_id());
+        return UserModel.toModel(userFilm.getUser());
     }
 
     /**

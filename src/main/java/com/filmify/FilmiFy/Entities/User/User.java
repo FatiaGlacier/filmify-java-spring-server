@@ -9,15 +9,20 @@ import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
 import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@ToString
 @Entity
-@Cacheable(false)
 @Table(name = "user")
 public class User {
     @Id
@@ -50,7 +55,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserRoom> userRooms;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserFilm> userFilms;
 
     @OneToMany(mappedBy = "user")
@@ -61,7 +66,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<RoomFilm> roomFilms;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_favorite_genre",
             joinColumns = @JoinColumn(name = "ufg_user_id"),
@@ -69,7 +74,9 @@ public class User {
     )
     private List<Genre> genres;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @Getter
+    @Setter
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_film",
             joinColumns = @JoinColumn(name = "uf_user_id"),
@@ -77,22 +84,7 @@ public class User {
     )
     private List<Film> films;
 
-//    public void addFilm(Film film) {
-//        if (films == null) {
-//            films = new ArrayList<>();
-//        }
-//        films.add(film);
-//        film.getUsers().add(this);
-//    }
-//
-//    public void removeFilm(Film film) {
-//        if (films != null) {
-//            films.remove(film);
-//            film.getUsers().remove(this);
-//        }
-//    }
-
-    @ManyToMany
+    @OneToMany
     @JoinTable(
             name = "user_room",
             joinColumns = @JoinColumn(name = "ur_user_id"),
@@ -255,25 +247,40 @@ public class User {
         this.rooms = rooms;
     }
 
-    public List<Film> getFilms() {
-        return films;
+//    public List<Film> getFilms() {
+//        return films;
+//    }
+//
+//    public void setFilms(List<Film> films) {
+//        this.films = films;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "user_id=" + user_id +
+//                ", user_name='" + user_name + '\'' +
+//                ", user_email='" + user_email + '\'' +
+//                ", password='" + password + '\'' +
+//                ", gender='" + gender + '\'' +
+//                ", birthday=" + birthday +
+//                ", registration_date=" + registration_date +
+//                ", is_admin=" + is_admin +
+//                '}';
+//    }
+
+    public void addToUserFilms(UserFilm userFilm) {
+        getUserFilms().add(userFilm);
     }
 
-    public void setFilms(List<Film> films) {
-        this.films = films;
+    public void deleteFromUserFilm(UserFilm userFilm){
+//        for(UserFilm uf: getUserFilms()){
+//            if(Objects.equals(uf.getFilm().getFilm_id(), userFilm.getFilm().getFilm_id())){
+//                getUserFilms().remove(uf);
+//                break;
+//            }
+//        }
+        getUserFilms().remove(userFilm);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + user_id +
-                ", user_name='" + user_name + '\'' +
-                ", user_email='" + user_email + '\'' +
-                ", password='" + password + '\'' +
-                ", gender='" + gender + '\'' +
-                ", birthday=" + birthday +
-                ", registration_date=" + registration_date +
-                ", is_admin=" + is_admin +
-                '}';
-    }
 }

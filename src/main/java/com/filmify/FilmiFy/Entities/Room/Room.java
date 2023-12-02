@@ -33,7 +33,7 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<RoomFilm> roomFilms;
 
-    @ManyToMany
+    @OneToMany
     @JsonIgnore
     @JoinTable(
             name = "user_room",

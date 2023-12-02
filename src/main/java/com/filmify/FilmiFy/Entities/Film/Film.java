@@ -5,6 +5,7 @@ import com.filmify.FilmiFy.Entities.FilmGenre.FilmGenre;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.RoomFilm.RoomFilm;
 import com.filmify.FilmiFy.Entities.User.User;
+import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
 import com.filmify.FilmiFy.Entities.UserUploading.UserUploading;
 import com.filmify.FilmiFy.Models.FilmModel;
 import com.filmify.FilmiFy.Models.GenreModel;
@@ -12,6 +13,8 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Cacheable(false)
@@ -46,14 +49,17 @@ public class Film {
     @OneToMany(mappedBy = "film")
     private List<FilmGenre> filmGenres;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+    private List<UserFilm> userFilms;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "films")
     @JsonIgnore
-    @JoinTable(
-            name = "user_film",
-            joinColumns = @JoinColumn(name = "uf_film_id"),
-            inverseJoinColumns = @JoinColumn(name = "uf_user_id")
-    )
-    private List<User> users;
+//    @JoinTable(
+//            name = "user_film",
+//            joinColumns = @JoinColumn(name = "uf_film_id"),
+//            inverseJoinColumns = @JoinColumn(name = "uf_user_id")
+//    )
+    private Set<User> users;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -164,12 +170,20 @@ public class Film {
     }
 
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public List<UserFilm> getUserFilms() {
+        return userFilms;
+    }
+
+    public void setUserFilms(List<UserFilm> userFilms) {
+        this.userFilms = userFilms;
     }
 
     @Override
@@ -183,5 +197,17 @@ public class Film {
                 ", film_duration_minutes=" + film_duration_minutes +
                 ", film_IMDb_rating=" + film_imdb_rating +
                 '}';
+    }
+
+    public void addToUserFilms(UserFilm userFilm) {
+        getUserFilms().add(userFilm);
+    }
+
+    public void deleteFromUserFilm(UserFilm userFilm){
+        for(UserFilm uf: getUserFilms()){
+            if(Objects.equals(uf.getUser().getUser_id(), userFilm.getUser().getUser_id())){
+                userFilms.remove(uf);
+            }
+        }
     }
 }

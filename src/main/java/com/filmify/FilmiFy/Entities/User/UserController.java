@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PostMapping("/add-liked-film")
-    public ResponseEntity<?> addLikedFilm(@RequestParam(name = "user_id") Long user_id,
+    public ResponseEntity<UserModel> addLikedFilm(@RequestParam(name = "user_id") Long user_id,
                                           @RequestParam(name = "film_id") Long film_id){
         try{
             UserModel userModel = userService.addLikedFilm(user_id, film_id);
@@ -84,7 +84,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete-liked-film")
-    public ResponseEntity<?> deleteLikedFilm(@RequestParam(name = "user_id") Long user_id,
+    public ResponseEntity<UserModel> deleteLikedFilm(@RequestParam(name = "user_id") Long user_id,
                                           @RequestParam(name = "film_id") Long film_id){
         try{
             UserModel userModel = userService.deleteLikedFilm(user_id, film_id);

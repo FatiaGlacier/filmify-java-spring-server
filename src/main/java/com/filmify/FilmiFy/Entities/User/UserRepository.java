@@ -12,10 +12,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOptionalUserByName(@Param("name") String name);
 
     @Query("SELECT u FROM User u WHERE u.user_name = :name")
-    User findUserByName(@Param("name") String name);
+    Optional<User> findUserByName(@Param("name") String name);
 
     @Query("SELECT u FROM User u WHERE u.user_email = :email")
-    Optional<User> findUserByEmail( @Param("email") String email);
+    Optional<User> findUserByEmail(@Param("email") String email);
 //    @Query("INSERT INTO UserFilm uf(uf_user_id, uf_film_id) VALUES (:user_id, :film_id)")
 //    void saveLikedFilm(Long user_id, Long film_id);
 }
