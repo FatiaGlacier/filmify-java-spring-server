@@ -12,18 +12,18 @@ public class UserFavoriteGenre {
     @Column(name = "user_favorite_genre_id")
     private Long user_favorite_genre_id;
 
-    @Column(name = "ufg_genre_id")
-    private Long ufg_genre_id;
-
-    @Column(name = "ufg_user_id")
-    private Long ufg_user_id;
+//    @Column(name = "ufg_genre_id")
+//    private Long ufg_genre_id;
+//
+//    @Column(name = "ufg_user_id")
+//    private Long ufg_user_id;
 
     @ManyToOne
-    @JoinColumn(name = "ufg_user_id", insertable=false, updatable=false)
+    @JoinColumn(name = "ufg_user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "ufg_genre_id", insertable=false, updatable=false)
+    @JoinColumn(name = "ufg_genre_id")
     private Genre genre;
 
     public UserFavoriteGenre(){
@@ -65,21 +65,21 @@ public class UserFavoriteGenre {
         this.genre = genre;
     }
 
-    public Long getUfg_genre_id() {
-        return ufg_genre_id;
-    }
-
-    public void setUfg_genre_id(Long ufg_genre_id) {
-        this.ufg_genre_id = ufg_genre_id;
-    }
-
-    public Long getUfg_user_id() {
-        return ufg_user_id;
-    }
-
-    public void setUfg_user_id(Long ufg_user_id) {
-        this.ufg_user_id = ufg_user_id;
-    }
+//    public Long getUfg_genre_id() {
+//        return ufg_genre_id;
+//    }
+//
+//    public void setUfg_genre_id(Long ufg_genre_id) {
+//        this.ufg_genre_id = ufg_genre_id;
+//    }
+//
+//    public Long getUfg_user_id() {
+//        return ufg_user_id;
+//    }
+//
+//    public void setUfg_user_id(Long ufg_user_id) {
+//        this.ufg_user_id = ufg_user_id;
+//    }
 
     @Override
     public String toString() {

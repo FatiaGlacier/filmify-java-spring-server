@@ -9,6 +9,7 @@ import com.filmify.FilmiFy.Models.GenreModel;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "genre")
@@ -24,28 +25,28 @@ public class Genre {
 
 
     @OneToMany(mappedBy = "genre")
-    private List<UserFavoriteGenre> userFavoriteGenres;
+    private Set<UserFavoriteGenre> userFavoriteGenres;
 
     @OneToMany(mappedBy = "genre")
     private List<FilmGenre> filmGenres;
 
-    @ManyToMany
-    @JsonIgnore
-    @JoinTable(
-            name = "user_favorite_genre",
-            joinColumns = @JoinColumn(name = "ufg_genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "ufg_user_id")
-    )
-    private List<User> users;
-
-    @ManyToMany
-    @JsonIgnore
-    @JoinTable(
-            name = "film_genre",
-            joinColumns = @JoinColumn(name = "fg_genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "fg_film_id")
-    )
-    private List<Film> films;
+//    @ManyToMany
+//    @JsonIgnore
+//    @JoinTable(
+//            name = "user_favorite_genre",
+//            joinColumns = @JoinColumn(name = "ufg_genre_id"),
+//            inverseJoinColumns = @JoinColumn(name = "ufg_user_id")
+//    )
+//    private List<User> users;
+//
+//    @ManyToMany
+//    @JsonIgnore
+//    @JoinTable(
+//            name = "film_genre",
+//            joinColumns = @JoinColumn(name = "fg_genre_id"),
+//            inverseJoinColumns = @JoinColumn(name = "fg_film_id")
+//    )
+//    private List<Film> films;
 
     public Genre(){
 
@@ -77,12 +78,12 @@ public class Genre {
         this.genre_name = genre_name;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public Set<UserFavoriteGenre> getUserFavoriteGenres() {
+        return userFavoriteGenres;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserFavoriteGenres(Set<UserFavoriteGenre> userFavoriteGenres) {
+        this.userFavoriteGenres = userFavoriteGenres;
     }
 
     @Override
@@ -92,12 +93,5 @@ public class Genre {
                 ", genre_name='" + genre_name + '\'' +
                 '}';
     }
-
-//    public static GenreModel toModel(Genre genre){
-//        GenreModel model = new GenreModel();
-//        model.setGenre_id(genre.getGenre_id());
-//        model.setGenre_name(genre.getGenre_name());
-//
-//        return model;
-//    }
 }
+

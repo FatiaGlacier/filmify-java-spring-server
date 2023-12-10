@@ -11,6 +11,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.filmify.FilmiFy.Entities.Film.Film;
+import com.filmify.FilmiFy.Entities.Genre.Genre;
+import com.filmify.FilmiFy.Entities.User.User;
+import com.filmify.FilmiFy.Entities.UserFavoriteGenre.UserFavoriteGenre;
+import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class UserModel {
@@ -69,6 +81,21 @@ public class UserModel {
         this.registration_date = registration_date;
         this.is_admin = is_admin;
         this.genres = new ArrayList<>();
+        this.films = new ArrayList<>();
+    }
+
+    public UserModel(Long user_id, String user_name, String user_email,
+                     String password, String gender, LocalDate birthday,
+                     LocalDate registration_date, boolean is_admin, List<GenreModel> genres) {
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.user_email = user_email;
+        this.password = password;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.registration_date = registration_date;
+        this.is_admin = is_admin;
+        this.genres = genres;
         this.films = new ArrayList<>();
     }
 
@@ -191,12 +218,17 @@ public class UserModel {
         model.setBirthday(user.getBirthday());
         model.setRegistration_date(user.getRegistration_date());
         model.setIs_admin(user.getIs_admin());
-        for(Genre genre: user.getGenres()){
-            model.getGenres().add(GenreModel.toModel(genre));
+        for(UserFavoriteGenre userFavoriteGenre: user.getUserFavoriteGenres()){
+            model.getGenres().add(GenreModel.toModel(userFavoriteGenre.getGenre()));
         }
-        for(UserFilm userFilm : user.getUserFilms()){
-            model.getFilms().add(FilmModel.toModel(userFilm.getFilm()));
+        if(user.getUserFilms() != null){
+            for(UserFilm userFilm : user.getUserFilms()){
+                model.getFilms().add(FilmModel.toModel(userFilm.getFilm()));
+            }
+        }else{
+            user.setFilms(new ArrayList<>());
         }
+
         return model;
     }
 }

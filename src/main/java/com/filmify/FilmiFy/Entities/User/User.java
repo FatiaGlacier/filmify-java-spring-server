@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @ToString
 @Entity
@@ -61,8 +62,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserUploading> userUploadings;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserFavoriteGenre> userFavoriteGenres;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserFavoriteGenre> userFavoriteGenres;
 
     @OneToMany(mappedBy = "user")
     private List<RoomFilm> roomFilms;
@@ -125,6 +126,28 @@ public class User {
         this.registration_date = registration_date;
         this.is_admin = is_admin;
     }
+
+    //    change info
+    public User(String user_name, String user_email, String password,
+                String gender, LocalDate birthday, boolean is_admin) {
+        this.user_name = user_name;
+        this.user_email = user_email;
+        this.password = password;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.is_admin = is_admin;
+    }
+
+//    change info
+//    public User(String user_name, String user_email, String password,
+//                String gender, LocalDate birthday, boolean is_admin, ) {
+//        this.user_name = user_name;
+//        this.user_email = user_email;
+//        this.password = password;
+//        this.gender = gender;
+//        this.birthday = birthday;
+//        this.is_admin = is_admin;
+//    }
 
     public Long getUser_id() {
         return user_id;
@@ -215,11 +238,11 @@ public class User {
         this.userUploadings = userUploadings;
     }
 
-    public List<UserFavoriteGenre> getUserFavoriteGenres() {
+    public Set<UserFavoriteGenre> getUserFavoriteGenres() {
         return userFavoriteGenres;
     }
 
-    public void setUserFavoriteGenres(List<UserFavoriteGenre> userFavoriteGenres) {
+    public void setUserFavoriteGenres(Set<UserFavoriteGenre> userFavoriteGenres) {
         this.userFavoriteGenres = userFavoriteGenres;
     }
 
@@ -284,3 +307,4 @@ public class User {
     }
 
 }
+

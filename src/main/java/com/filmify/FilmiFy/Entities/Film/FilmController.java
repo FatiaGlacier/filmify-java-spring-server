@@ -49,7 +49,7 @@ public class FilmController {
     }
 
     @GetMapping("/find-by-name")
-    public ResponseEntity<?> findFilmByFilm(@RequestParam(name = "name") String name){
+    public ResponseEntity<?> findFilmByName(@RequestParam(name = "name") String name){
         try{
             return ResponseEntity.ok(filmService.findFilmByName(name));
         }catch (FilmNotFoundException e){
