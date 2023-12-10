@@ -8,8 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
@@ -230,9 +229,14 @@ public class UserModel {
         model.setBirthday(user.getBirthday());
         model.setRegistration_date(user.getRegistration_date());
         model.setIs_admin(user.getIs_admin());
-        for(UserFavoriteGenre userFavoriteGenre: user.getUserFavoriteGenres()){
-            model.getGenres().add(GenreModel.toModel(userFavoriteGenre.getGenre()));
+        if(user.getUserFavoriteGenres() != null){
+            for(UserFavoriteGenre userFavoriteGenre: user.getUserFavoriteGenres()){
+                model.getGenres().add(GenreModel.toModel(userFavoriteGenre.getGenre()));
+            }
+        }else{
+            user.setUserFavoriteGenres(new HashSet<>());
         }
+
         if(user.getUserFilms() != null){
             for(UserFilm userFilm : user.getUserFilms()){
                 model.getFilms().add(FilmModel.toModel(userFilm.getFilm()));
