@@ -151,7 +151,7 @@ public class UserService {
         Film film = foundedFilm.get();
 
         Optional<UserFilm> foundUserFilm = userFilmRepository.findByUserIdAndFilmId(user_id, film_id);
-        if(foundedFilm.isPresent()){
+        if(foundUserFilm.isPresent()){
             throw new FilmNotFoundException("Film already in user list, film ID: " + film_id);
         }
         UserFilm userFilm = new UserFilm();
