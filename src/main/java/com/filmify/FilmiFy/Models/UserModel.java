@@ -99,6 +99,18 @@ public class UserModel {
         this.films = new ArrayList<>();
     }
 
+    public UserModel(String user_name, String user_email,
+                     String password, LocalDate birthday,
+                     List<GenreModel> genres) {
+        this.user_name = user_name;
+        this.user_email = user_email;
+        this.password = password;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.genres = genres;
+        this.films = new ArrayList<>();
+    }
+
     public UserModel(String user_name, String user_email, String password,
                      String gender, LocalDate birthday, LocalDate registration_date,
                      boolean is_admin) {

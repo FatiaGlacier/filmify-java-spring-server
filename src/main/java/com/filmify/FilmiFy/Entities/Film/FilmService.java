@@ -13,9 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FilmService {
@@ -78,12 +76,26 @@ public class FilmService {
         filmRepository.save(film);
     }
 
+//    public Set<FilmModel> findFilmByName(String name) {
+//        Optional<Set<Film>> foundedFilms = filmRepository.findByName(name);
+//        if(foundedFilms.isEmpty()){
+//            throw new FilmNotFoundException("Film not found, wrong name: " + name);
+//        }
+//
+//        Set<FilmModel> filmModels = new HashSet<>();
+//        for(Film film : foundedFilms.get()){
+//            filmModels.add(FilmModel.toModel(film));
+//        }
+//
+//        return filmModels;
+//    }
+
     public FilmModel findFilmByName(String name) {
-        Optional<Film> foundedFilm = filmRepository.findByName(name);
-        if(foundedFilm.isEmpty()){
+        Optional<Film> foundedFilms = filmRepository.findByName(name);
+        if(foundedFilms.isEmpty()){
             throw new FilmNotFoundException("Film not found, wrong name: " + name);
         }
 
-        return FilmModel.toModel(foundedFilm.get());
+        return FilmModel.toModel(foundedFilms.get());
     }
 }

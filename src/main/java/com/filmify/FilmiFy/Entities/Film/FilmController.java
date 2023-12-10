@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/film")
@@ -48,8 +49,18 @@ public class FilmController {
 
     }
 
+//    @GetMapping("/find-by-name")
+//    public ResponseEntity<Set<FilmModel>> findFilmByName(@RequestParam(name = "name") String name){
+//        try{
+//            return ResponseEntity.ok(filmService.findFilmByName(name));
+//        }catch (FilmNotFoundException e){
+//            throw e;
+//        }
+//
+//    }
+
     @GetMapping("/find-by-name")
-    public ResponseEntity<?> findFilmByName(@RequestParam(name = "name") String name){
+    public ResponseEntity<FilmModel> findFilmByName(@RequestParam(name = "name") String name){
         try{
             return ResponseEntity.ok(filmService.findFilmByName(name));
         }catch (FilmNotFoundException e){

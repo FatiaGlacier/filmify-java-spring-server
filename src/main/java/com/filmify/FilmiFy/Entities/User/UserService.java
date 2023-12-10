@@ -227,9 +227,9 @@ public class UserService {
             foundUser.setPassword(user.getPassword());
         }
 
-        if (!foundUser.getGender().equals(user.getGender())) {
-            foundUser.setGender(user.getGender());
-        }
+//        if (!foundUser.getGender().equals(user.getGender())) {
+//            foundUser.setGender(user.getGender());
+//        }
 
         if (!foundUser.getBirthday().equals(user.getBirthday())) {
             foundUser.setBirthday(user.getBirthday());
