@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface FilmRepository extends JpaRepository<Film, Long> {
 
     @Query("SELECT f FROM Film f WHERE f.film_id IN " +
-            "(SELECT fg.fg_film_id FROM FilmGenre fg WHERE fg.fg_genre_id IN " +
+            "(SELECT fg.film.film_id FROM FilmGenre fg WHERE fg.genre.genre_id IN " +
             "(SELECT ufg.genre.genre_id FROM UserFavoriteGenre ufg WHERE ufg.user.user_id= :id))")
     List<Film> getFilmForUser(@Param("id") Long id);
 

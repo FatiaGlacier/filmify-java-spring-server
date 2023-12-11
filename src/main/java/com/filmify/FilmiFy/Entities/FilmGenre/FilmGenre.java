@@ -14,19 +14,18 @@ public class FilmGenre {
     @Column(name = "film_genre_id")
     private Long film_genre_id;
 
-
-    @Column(name = "fg_film_id")
-    private Long fg_film_id;
-
-    @Column(name = "fg_genre_id")
-    private Long fg_genre_id;
+//    @Column(name = "fg_film_id")
+//    private Long fg_film_id;
+//
+//    @Column(name = "fg_genre_id")
+//    private Long fg_genre_id;
 
     @ManyToOne
-    @JoinColumn(name = "fg_film_id", insertable=false, updatable=false)
+    @JoinColumn(name = "fg_film_id")
     private Film film;
 
     @ManyToOne
-    @JoinColumn(name = "fg_genre_id", insertable=false, updatable=false)
+    @JoinColumn(name = "fg_genre_id")
     private Genre genre;
 
     public FilmGenre(){
@@ -68,21 +67,21 @@ public class FilmGenre {
         this.genre = genre;
     }
 
-    public Long getFg_film_id() {
-        return fg_film_id;
-    }
-
-    public void setFg_film_id(Long fg_film_id) {
-        this.fg_film_id = fg_film_id;
-    }
-
-    public Long getFg_genre_id() {
-        return fg_genre_id;
-    }
-
-    public void setFg_genre_id(Long fg_genre_id) {
-        this.fg_genre_id = fg_genre_id;
-    }
+//    public Long getFg_film_id() {
+//        return fg_film_id;
+//    }
+//
+//    public void setFg_film_id(Long fg_film_id) {
+//        this.fg_film_id = fg_film_id;
+//    }
+//
+//    public Long getFg_genre_id() {
+//        return fg_genre_id;
+//    }
+//
+//    public void setFg_genre_id(Long fg_genre_id) {
+//        this.fg_genre_id = fg_genre_id;
+//    }
 
     @Override
     public String toString() {

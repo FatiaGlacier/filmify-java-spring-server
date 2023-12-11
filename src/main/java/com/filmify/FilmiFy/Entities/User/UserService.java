@@ -142,7 +142,7 @@ public class UserService {
             throw new UserNotFoundException("User not found, wrong ID: " + user_id);
         }
         User user = foundedUser.get();
-        userRepository.deleteUserFavGenres(user.getUser_id());
+        //userRepository.deleteUserFavGenres(user.getUser_id());
         log.info(user.toString());
         Optional<Film> foundedFilm = filmRepository.findById(film_id);
         if(foundedFilm.isEmpty()){
