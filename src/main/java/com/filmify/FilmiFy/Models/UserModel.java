@@ -2,8 +2,10 @@ package com.filmify.FilmiFy.Models;
 
 import com.filmify.FilmiFy.Entities.Film.Film;
 import com.filmify.FilmiFy.Entities.Genre.Genre;
+import com.filmify.FilmiFy.Entities.Room.Room;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.UserFilm.UserFilm;
+import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,9 +59,12 @@ public class UserModel {
 
     private List<FilmModel> films;
 
+    private List<RoomModel> rooms;
+
     public UserModel(){
         this.genres = new ArrayList<>();
         this.films = new ArrayList<>();
+        this.rooms = new ArrayList<>();
     }
 
     //For login
@@ -81,6 +86,7 @@ public class UserModel {
         this.is_admin = is_admin;
         this.genres = new ArrayList<>();
         this.films = new ArrayList<>();
+        this.rooms = new ArrayList<>();
     }
 
     public UserModel(Long user_id, String user_name, String user_email,
@@ -96,6 +102,7 @@ public class UserModel {
         this.is_admin = is_admin;
         this.genres = genres;
         this.films = new ArrayList<>();
+        this.rooms = new ArrayList<>();
     }
 
     public UserModel(String user_name, String user_email,
@@ -108,6 +115,7 @@ public class UserModel {
         this.birthday = birthday;
         this.genres = genres;
         this.films = new ArrayList<>();
+        this.rooms = new ArrayList<>();
     }
 
     public UserModel(String user_name, String user_email, String password,
@@ -122,6 +130,7 @@ public class UserModel {
         this.is_admin = is_admin;
         this.genres = new ArrayList<>();
         this.films = new ArrayList<>();
+        this.rooms = new ArrayList<>();
     }
 
     public Long getUser_id() {
@@ -205,6 +214,14 @@ public class UserModel {
         this.genres = genres;
     }
 
+    public List<RoomModel> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<RoomModel> rooms) {
+        this.rooms = rooms;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -245,6 +262,13 @@ public class UserModel {
             user.setFilms(new ArrayList<>());
         }
 
+        if(user.getUserRooms() != null){
+            for(UserRoom userRoom: user.getUserRooms()){
+                model.getRooms().add(RoomModel.toModel(userRoom.getRoom()));
+            }
+        }else{
+            user.setRooms(new ArrayList<>());
+        }
         return model;
     }
 }

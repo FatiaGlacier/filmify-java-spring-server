@@ -95,4 +95,16 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(apiException, badRequest);
     }
 
+    @ExceptionHandler(RoomNotFoundException.class)
+    public ResponseEntity<Object> handleWrongPasswordException(RoomNotFoundException e){
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                badRequest,
+                ZonedDateTime.now(ZoneId.of("Europe/Kiev"))
+        );
+
+        return new ResponseEntity<>(apiException, badRequest);
+    }
+
 }

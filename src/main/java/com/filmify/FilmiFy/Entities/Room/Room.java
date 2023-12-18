@@ -60,6 +60,11 @@ public class Room {
         this.creation_date = creation_date;
     }
 
+    public Room(String room_name, LocalDate creation_date) {
+        this.room_name = room_name;
+        this.creation_date = creation_date;
+    }
+
     public Long getRoom_id() {
         return room_id;
     }
@@ -90,6 +95,30 @@ public class Room {
 
     public void setCreation_date(LocalDate creation_date) {
         this.creation_date = creation_date;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<UserRoom> getUserRooms() {
+        return userRooms;
+    }
+
+    public void setUserRooms(List<UserRoom> userRooms) {
+        this.userRooms = userRooms;
+    }
+
+    public List<RoomFilm> getRoomFilms() {
+        return roomFilms;
+    }
+
+    public void setRoomFilms(List<RoomFilm> roomFilms) {
+        this.roomFilms = roomFilms;
     }
 
     @Override
