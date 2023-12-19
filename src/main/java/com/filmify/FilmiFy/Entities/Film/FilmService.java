@@ -2,12 +2,11 @@ package com.filmify.FilmiFy.Entities.Film;
 
 import com.filmify.FilmiFy.Entities.Genre.Genre;
 import com.filmify.FilmiFy.Entities.Genre.GenreRepository;
+import com.filmify.FilmiFy.Entities.Room.Room;
+import com.filmify.FilmiFy.Entities.Room.RoomRepository;
 import com.filmify.FilmiFy.Entities.User.User;
 import com.filmify.FilmiFy.Entities.User.UserRepository;
-import com.filmify.FilmiFy.Exceptions.FilmAlreadyExistException;
-import com.filmify.FilmiFy.Exceptions.FilmNotFoundException;
-import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
-import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
+import com.filmify.FilmiFy.Exceptions.*;
 import com.filmify.FilmiFy.Models.FilmModel;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +23,17 @@ public class FilmService {
 
     private GenreRepository genreRepository;
 
+    private RoomRepository roomRepository;
+
     @Autowired
-    public FilmService(FilmRepository filmRepository, UserRepository userRepository, GenreRepository genreRepository){
+    public FilmService(FilmRepository filmRepository,
+                       UserRepository userRepository,
+                       GenreRepository genreRepository,
+                       RoomRepository roomRepository){
         this.filmRepository = filmRepository;
         this.userRepository = userRepository;
         this.genreRepository = genreRepository;
+        this.roomRepository = roomRepository;
     }
 
     public List<FilmModel> getAll() {
@@ -97,5 +102,24 @@ public class FilmService {
         }
 
         return FilmModel.toModel(foundedFilms.get());
+    }
+
+    public List<FilmModel> getFilmForRoom(String code) {
+        Optional<Room> foundRoom = roomRepository.findRoomByCode(code);
+        if(foundRoom.isEmpty()){
+            throw new RoomNotFoundException("Room not found, wrong code: " + code);
+        }
+
+        Optional<List<Film>> foundFilms = filmRepository.getFilmsForRoom(code);
+        if(foundFilms.isEmpty()){
+            return new ArrayList<FilmModel>();
+        }
+
+        List<FilmModel> resultFilms = new ArrayList<>();
+        for(Film film: foundFilms.get()){
+            resultFilms.add(FilmModel.toModel(film));
+        }
+
+        return resultFilms;
     }
 }

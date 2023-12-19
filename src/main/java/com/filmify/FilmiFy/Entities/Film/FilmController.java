@@ -1,9 +1,6 @@
 package com.filmify.FilmiFy.Entities.Film;
 
-import com.filmify.FilmiFy.Exceptions.FilmAlreadyExistException;
-import com.filmify.FilmiFy.Exceptions.FilmNotFoundException;
-import com.filmify.FilmiFy.Exceptions.GenreNotFoundException;
-import com.filmify.FilmiFy.Exceptions.UserNotFoundException;
+import com.filmify.FilmiFy.Exceptions.*;
 import com.filmify.FilmiFy.Models.FilmModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +61,17 @@ public class FilmController {
         try{
             return ResponseEntity.ok(filmService.findFilmByName(name));
         }catch (FilmNotFoundException e){
+            throw e;
+        }
+
+    }
+
+    @GetMapping("/film-for-room")
+    public ResponseEntity<List<FilmModel>> getFilmForRoom(@RequestParam(name = "code") String code){
+        try{
+
+            return ResponseEntity.ok(filmService.getFilmForRoom(code));
+        }catch (RoomNotFoundException e){
             throw e;
         }
 
