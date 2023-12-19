@@ -38,23 +38,24 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
     @Query("SELECT f FROM Film f WHERE f.film_name LIKE :film_name")
     Optional<Film> findByName(@Param("film_name") String name);
 
-    @Query(value = "SELECT * FROM film\n" +
-            "WHERE film_id IN (\n" +
-            "    SELECT fg_film_id FROM film_genre WHERE fg_genre_id IN (\n" +
-            "        SELECT DISTINCT ufg2.ufg_genre_id\n" +
-            "        FROM user_favorite_genre ufg1\n" +
-            "        INNER JOIN user_favorite_genre ufg2 ON ufg1.ufg_genre_id = ufg2.ufg_genre_id\n" +
-            "        WHERE ufg2.ufg_user_id IN (\n" +
-            "            SELECT ur_user_id\n" +
-            "            FROM user_room\n" +
-            "            WHERE ur_room_id IN (\n" +
-            "                SELECT room_id\n" +
-            "                FROM room\n" +
-            "                WHERE room_code = :code\n" +
-            "            )\n" +
-            "        ) AND ufg2.ufg_user_id != ufg1.ufg_user_id\n" +
-            "    )\n" +
-            ")",
+    @Query(value = """
+            SELECT * FROM film
+            WHERE film_id IN (
+                SELECT fg_film_id FROM film_genre WHERE fg_genre_id IN (
+                    SELECT ufg_genre_id
+                    FROM user_favorite_genre
+                    WHERE ufg_user_id IN (
+                        SELECT ur_user_id
+                        FROM user_room
+                        WHERE ur_room_id IN (
+                            SELECT room_id
+                            FROM room
+                            WHERE room_code = '021319'
+                        )
+                    )\s
+                )
+            );
+            """,
     nativeQuery = true)
     Optional<List<Film>> getFilmsForRoom(String code);
 }

@@ -7,6 +7,7 @@ import com.filmify.FilmiFy.Entities.UserRoom.UserRoom;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomModel {
@@ -19,12 +20,14 @@ public class RoomModel {
 
     private LocalDate creation_date;
 
-    private List<UserRoom> userRooms;
+    private List<UserModel> userRooms;
 
     private List<RoomFilm> roomFilms;
 
-    public RoomModel() {
+    private List<String> userNames;
 
+    public RoomModel() {
+        this.userNames = new ArrayList<>();
     }
 
     public RoomModel(Long room_id, String room_code,
@@ -33,12 +36,14 @@ public class RoomModel {
         this.room_code = room_code;
         this.room_name = room_name;
         this.creation_date = creation_date;
+        this.userNames = new ArrayList<>();
     }
 
     public RoomModel(String room_code, String room_name, LocalDate creation_date) {
         this.room_code = room_code;
         this.room_name = room_name;
         this.creation_date = creation_date;
+        this.userNames = new ArrayList<>();
     }
 
     public Long getRoom_id() {
@@ -73,6 +78,14 @@ public class RoomModel {
         this.creation_date = creation_date;
     }
 
+    public List<String> getUserNames() {
+        return userNames;
+    }
+
+    public void setUserNames(List<String> userNames) {
+        this.userNames = userNames;
+    }
+
     @Override
     public String toString() {
         return "Room{" +
@@ -90,7 +103,13 @@ public class RoomModel {
         model.setRoom_name(room.getRoom_name());
         model.setRoom_id(room.getRoom_id());
         model.setCreation_date(room.getCreation_date());
-
+        if(room.getUserRooms() != null){
+            for(UserRoom userRoom: room.getUserRooms()){
+                model.getUserNames().add(userRoom.getUser().getUser_name());
+            }
+        }else{
+            model.setUserNames(new ArrayList<>());
+        }
         return model;
     }
 
