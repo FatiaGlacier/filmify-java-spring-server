@@ -50,7 +50,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
                         WHERE ur_room_id IN (
                             SELECT room_id
                             FROM room
-                            WHERE room_code = '021319'
+                            WHERE room_code = :code
                         )
                     )\s
                 )
